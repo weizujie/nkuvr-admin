@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Register Page - Nkuvr Admin</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{assets/css/signin.css}" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <form class="form-signin" action="/register" method="post">
+
+        <input type="hidden" name="id">
+
+        <h3 class="form-signin-heading">请填写注册信息：</h3>
+        <div style="text-align: center"><p style="color: red; align-content: center" th:text="${msg}"></p></div>
+        <label for="inputEmail" class="sr-only">邮箱</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="邮箱" name="email" required autofocus>
+
+        <label for="inputUsername" class="sr-only">用户名</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="用户名" name="username" required>
+
+
+        <label for="inputRealName" class="sr-only">姓名</label>
+        <input type="text" id="inputRealName" class="form-control" placeholder="姓名" name="realName" required>
+
+
+        <label for="inputStuNum" class="sr-only">学号</label>
+        <input type="number" id="inputStuNum" class="form-control" placeholder="学号" name="stuNum" required>
+
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="密码" name="password" required>
+
+        <input type="radio" value="0" name="gender" title="女" checked="checked"> 女 &nbsp;&nbsp;
+        <input type="radio" value="1" name="gender" title="男"> 男
+
+        <br>
+        <br>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+    </form>
+
+</div>
+</body>
+</html>

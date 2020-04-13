@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nkuvr.dao.UserMapper">
+    <insert id="save">
+        insert into t_user(username, password, gender, email, stu_num, real_name, create_time, update_time)
+        values (#{username}, #{password}, #{gender}, #{email}, #{stuNum}, #{realName}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!-- 因为 pagehelper 要在 sql 语句后加 limit，所有千万不能有分号 -->
+    <select id="selectList" resultType="com.nkuvr.pojo.UserEntity">
+        select * from t_user
+    </select>
+    <select id="findByUsername" resultType="com.nkuvr.pojo.UserEntity" parameterType="string">
+        select * from t_user where username = #{username}
+    </select>
+</mapper>
