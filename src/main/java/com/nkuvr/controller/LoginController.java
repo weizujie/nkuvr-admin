@@ -1,5 +1,6 @@
 package com.nkuvr.controller;
 
+import com.nkuvr.pojo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -35,7 +36,7 @@ public class LoginController {
         try {
             // 执行登录的方法，如果没有异常就登录成功了，跳转到主页面
             subject.login(usernamePasswordToken);
-            return "redirect:user/profile";
+            return "redirect:user/userProfile";
         } catch (UnknownAccountException | IncorrectCredentialsException e) {  // 用户名或密码不存在
             model.addAttribute("msg", "用户名或密码错误");
             return "login";
@@ -48,6 +49,6 @@ public class LoginController {
         if (subject.isAuthenticated()) {
             subject.logout();
         }
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

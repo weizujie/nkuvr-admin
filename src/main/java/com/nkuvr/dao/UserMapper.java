@@ -1,6 +1,8 @@
 package com.nkuvr.dao;
 
-import com.nkuvr.pojo.UserEntity;
+import com.nkuvr.pojo.User;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -11,9 +13,15 @@ import java.util.List;
  * @Github: https://github.com/byojiaoxianz7
  */
 public interface UserMapper {
-    List<UserEntity> selectList();
+    void deleteById(@Param("id") Long id);
 
-    UserEntity findByUsername(String username);
+    User findUserById(Long id);
 
-    void save(UserEntity userEntity);
+    List<User> selectList();
+
+    User findByUsername(String username);
+
+    int update(User user);
+
+    void register(User user);
 }

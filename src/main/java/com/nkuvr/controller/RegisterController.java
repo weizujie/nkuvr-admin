@@ -1,7 +1,6 @@
 package com.nkuvr.controller;
 
-import com.nkuvr.dao.UserJpa;
-import com.nkuvr.pojo.UserEntity;
+import com.nkuvr.pojo.User;
 import com.nkuvr.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RegisterController {
 
     @Autowired
-    private UserJpa userJpa;
-
-    @Autowired
     private UserServiceImpl userService;
 
     @GetMapping("/register")
@@ -31,10 +27,10 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String doRegister(UserEntity user, Model model) {
-        UserEntity byUsername = userService.findByUsername(user.getUsername());
-        if (byUsername == null) {
-            userJpa.save(user);
+    public String doRegister(User user, Model model) {
+        User findByUsername = userService.findByUsername(user.getUsername());
+        if (findByUsername == null) {
+            userService.register(user);
             return "redirect:/login";
         } else {
             model.addAttribute("msg", "该用户名已存在");

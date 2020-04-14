@@ -92,11 +92,11 @@
                                 <th th:text="${user.realName}"></th>
                                 <th th:text="${user.gender}=='0'?'女':'男'"></th>
                                 <th th:text="${user.email}"></th>
-                                <th th:text="${user.createTime}"></th>
-                                <th th:text="${user.updateTime}"></th>
+                                <th th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></th>
+                                <th th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></th>
                                 <th>
-                                    <a class="btn btn-sm btn-primary" th:href="@{/user/}+${user.id}">编辑</a>
-                                    <a class="btn btn-sm btn-warning" th:href="@{/user/}+${user.id}">删除</a>
+                                    <a class="btn btn-sm btn-primary" th:href="@{/user/toUserUpdate?id=}+${user.id}">编辑</a>
+                                    <a class="btn btn-sm btn-warning" th:href="@{/user/userDelete?id=}+${user.id}">删除</a>
                                 </th>
 
                             </tr>

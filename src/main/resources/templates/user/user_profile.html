@@ -141,7 +141,7 @@
                                             <div class="profile-info-name"> 创建时间 </div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable editable-click" id="signup" th:text="${users.createTime}"></span>
+                                                <span class="editable editable-click" id="signup" th:text="${#dates.format(users.createTime, 'yyyy-MM-dd HH:mm')}"></span>
                                             </div>
                                         </div>
 
@@ -149,7 +149,7 @@
                                             <div class="profile-info-name"> 修改时间 </div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable editable-click" id="login" th:text="${users.updateTime}"></span>
+                                                <span class="editable editable-click" id="login" th:text="${#dates.format(users.updateTime, 'yyyy-MM-dd HH:mm')}"></span>
                                             </div>
                                         </div>
                                     </div>

@@ -16,9 +16,10 @@
 
 <div class="container">
 
-    <form class="form-signin" action="/register" method="post">
-
+    <form class="form-signin" th:action="@{register}" method="post">
+        <!-- 默认注册的是学生权限 -->
         <input type="hidden" name="id">
+        <input type="hidden" name="perms" value="student">
 
         <h3 class="form-signin-heading">请填写注册信息：</h3>
         <div style="text-align: center"><p style="color: red; align-content: center" th:text="${msg}"></p></div>

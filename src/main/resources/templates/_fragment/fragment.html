@@ -16,7 +16,7 @@
         </button>
 
         <div class="navbar-header pull-left">
-            <a th:href="@{/}" class="navbar-brand">
+            <a th:href="@{/user/userProfile}" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
                     Nkuvr Admin
@@ -63,7 +63,7 @@
     <ul class="nav nav-list">
 
         <li class="active">
-            <a th:href="@{profile}">
+            <a th:href="@{/user/userProfile}">
                 <i class="menu-icon fa fa-tachometer"></i>
                 <span class="menu-text"> 系统管理 </span>
             </a>
@@ -71,7 +71,7 @@
             <b class="arrow"></b>
         </li>
 
-        <li class="">
+        <li class="" shiro:hasPermission="admin">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
                 <span class="menu-text"> 用户管理 </span>
@@ -83,7 +83,7 @@
 
             <ul class="submenu">
                 <li class="">
-                    <a th:href="@{userList}">
+                    <a th:href="@{/user/userList}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         用户列表
                     </a>
@@ -105,17 +105,25 @@
 
             <ul class="submenu">
                 <li class="">
-                    <a th:href="@{form}">
+                    <a th:href="@{/user/userFormAdd}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         预约申请
                     </a>
                     <b class="arrow"></b>
                 </li>
 
-                <li class="">
-                    <a th:href="@{formList}">
+                <li class="" shiro:hasPermission="admin">
+                    <a th:href="@{/user/userFormList}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        查看预约
+                        预约列表
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
+                    <a th:href="@{/user/userFormSchedule}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        预约进度
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -138,7 +146,7 @@
             <ul class="submenu">
 
                 <li class="">
-                    <a th:href="@{404}">
+                    <a th:href="@{/error/404}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Error 404
                     </a>
@@ -147,9 +155,18 @@
                 </li>
 
                 <li class="">
-                    <a th:href="@{500}">
+                    <a th:href="@{/error/500}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Error 500
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="">
+                    <a th:href="@{/error/unAuth}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Unauthorized
                     </a>
 
                     <b class="arrow"></b>

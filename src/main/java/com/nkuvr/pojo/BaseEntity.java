@@ -1,10 +1,11 @@
 package com.nkuvr.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.Temporal;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,8 +26,8 @@ public class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @CreatedDate
-    private Date createTime;
-    @LastModifiedDate
-    private Date updateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date createTime = new Date();
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date updateTime = new Date();
 }

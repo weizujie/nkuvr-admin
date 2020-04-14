@@ -1,6 +1,6 @@
 package com.nkuvr.service;
 
-import com.nkuvr.pojo.UserEntity;
+import com.nkuvr.pojo.User;
 
 import java.util.List;
 
@@ -11,10 +11,16 @@ import java.util.List;
  * @Github: https://github.com/byojiaoxianz7
  */
 public interface IUserService {
-    List<UserEntity> selectList();
+    List<User> selectList();
 
-    UserEntity findByUsername(String username);
+    User findByUsername(String username);
 
-    void save(UserEntity userEntity);
+    void deleteById(Long id);
 
+    User findUserById(Long id);
+
+    int update(User user);
+
+
+    void register(User user);
 }
