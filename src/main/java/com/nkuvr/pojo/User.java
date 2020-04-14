@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 
 /**
  * @Author: weizujie
@@ -25,4 +26,5 @@ public class UserEntity extends BaseEntity {
     private Integer stuNum;
     private String realName;
     private String email;
+    private String perms;
 }
