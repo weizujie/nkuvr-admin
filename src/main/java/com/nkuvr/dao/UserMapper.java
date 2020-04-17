@@ -2,7 +2,6 @@ package com.nkuvr.dao;
 
 import com.nkuvr.pojo.User;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -13,15 +12,8 @@ import java.util.List;
  * @Github: https://github.com/byojiaoxianz7
  */
 public interface UserMapper {
-    void deleteById(@Param("id") Long id);
+    List<User> findAll();
 
-    User findUserById(Long id);
+    User queryForLogin(User user);
 
-    List<User> selectList();
-
-    User findByUsername(String username);
-
-    int update(User user);
-
-    void register(User user);
 }

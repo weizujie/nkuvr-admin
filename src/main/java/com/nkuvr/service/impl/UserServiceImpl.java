@@ -21,35 +21,14 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
 
+
     @Override
-    public List<User> selectList() {
-        return userMapper.selectList();
+    public List<User> findAll() {
+        return userMapper.findAll();
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userMapper.findByUsername(username);
+    public User queryForLogin(User user) {
+        return userMapper.queryForLogin(user);
     }
-
-    @Override
-    public void deleteById(Long id) {
-        userMapper.deleteById(id);
-    }
-
-    @Override
-    public User findUserById(Long id) {
-        return userMapper.findUserById(id);
-    }
-
-    @Override
-    public int update(User user) {
-        return userMapper.update(user);
-    }
-
-    @Override
-    public void register(User user) {
-        userMapper.register(user);
-    }
-
-
 }

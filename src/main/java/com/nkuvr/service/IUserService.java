@@ -11,16 +11,7 @@ import java.util.List;
  * @Github: https://github.com/byojiaoxianz7
  */
 public interface IUserService {
-    List<User> selectList();
+    List<User> findAll();
 
-    User findByUsername(String username);
-
-    void deleteById(Long id);
-
-    User findUserById(Long id);
-
-    int update(User user);
-
-
-    void register(User user);
+    User queryForLogin(User user);
 }

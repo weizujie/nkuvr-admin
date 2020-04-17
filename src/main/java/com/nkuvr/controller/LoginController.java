@@ -1,15 +1,14 @@
 package com.nkuvr.controller;
 
+import com.nkuvr.pojo.Result;
 import com.nkuvr.pojo.User;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
+import com.nkuvr.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author: weizujie
@@ -21,34 +20,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
-    @GetMapping({"/", "/login", "/index"})
+    @Autowired
+    private IUserService userService;
+
+    @RequestMapping(value = {"/", "/login"})
     public String toLogin() {
         return "login";
     }
 
-
-    @PostMapping("/login")
-    public String doLogin(String username, String password, Model model) {
-        // 获取当前的用户
-        Subject subject = SecurityUtils.getSubject();
-        // 封装用户的登录数据
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
-        try {
-            // 执行登录的方法，如果没有异常就登录成功了，跳转到主页面
-            subject.login(usernamePasswordToken);
-            return "redirect:user/userProfile";
-        } catch (UnknownAccountException | IncorrectCredentialsException e) {  // 用户名或密码不存在
-            model.addAttribute("msg", "用户名或密码错误");
-            return "login";
-        }
+    @RequestMapping(value = "/logout")
+    public String toLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:login";
     }
 
-    @GetMapping("/logout")
-    public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()) {
-            subject.logout();
+    @RequestMapping(value = "/doAjaxLogin")
+    @ResponseBody
+    public Object doAjaxLogin(User user, HttpSession session) {
+
+        Result result = new Result();
+        User dbUser = userService.queryForLogin(user);
+        if (dbUser != null) {
+            session.setAttribute("loginUser", dbUser);
+            result.setSuccess(true);
+        } else {
+            result.setSuccess(false);
         }
-        return "redirect:/login";
+        return result;
     }
 }

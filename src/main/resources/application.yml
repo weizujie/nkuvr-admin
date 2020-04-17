@@ -4,21 +4,29 @@ spring:
     url: jdbc:mysql://localhost:3306/nkuvr_admin?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
     password: toor
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
   thymeleaf:
     cache: false
-    mode: LEGACYHTML5
 
+  devtools:
+    restart:
+      # 开启热部署
+      enabled: true
+      # 重启目录
+      additional-paths: src/main/java
+      additional-exclude: classpath:/
+
+# 端口配置
 server:
-  port: 8081
+  port: 8082
+
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 分页配置
 pagehelper:
   params: count=countSql
   reasonable: true

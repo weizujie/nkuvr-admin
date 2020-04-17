@@ -3,40 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nkuvr.dao.UserMapper">
-    <update id="update" parameterType="com.nkuvr.pojo.User">
-        update t_user set
-            username = #{username},
-            password = #{password},
-            email = #{email},
-            gender = #{gender},
-            real_name = #{realName},
-            stu_num = #{stuNum},
-            perms = #{perms}
-        where id = #{id}
-    </update>
-    <insert id="register">
-        insert into t_user(
-            username, password, email, stu_num, gender, real_name, perms, update_time, create_time
-        ) values (
-            #{username}, #{password}, #{email}, #{stuNum}, #{gender}, #{realName}, #{perms}, #{updateTime}, #{createTime}
-        )
-    </insert>
-    <delete id="deleteById">
-        delete from t_user where id = #{id}
-    </delete>
-    <!-- 因为 pagehelper 要在 sql 语句后加 limit，所有千万不能有分号 -->
-    <select id="selectList" resultType="com.nkuvr.pojo.User">
-        select * from t_user
+    <select id="findAll" resultType="com.nkuvr.pojo.User">
+        select * from sys_user
     </select>
-
-
-    <select id="findByUsername" resultType="com.nkuvr.pojo.User">
-        select * from t_user where username = #{username}
-    </select>
-
-
-    <select id="findUserById" resultType="com.nkuvr.pojo.User">
-        select * from t_user where id = #{id}
+    <select id="queryForLogin" resultType="com.nkuvr.pojo.User">
+        select * from sys_user where sys_user.username = #{username} and sys_user.password = #{password}
     </select>
 
 </mapper>
