@@ -4,29 +4,39 @@
     <title>用户管理</title>
 </head>
 <body>
+<h4 th:text="'用户名：' + ${session.loginUser.username}"></h4>
+<a href="/logout">退出登录</a>
+<hr>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>用户名</th>
+        <th>操作</th>
+    </tr>
+    <tbody th:each="user : ${pageInfo.list}">
+    <tr>
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td>
+            <a href="">修改</a>
+            <a href="">删除</a>
+        </td>
+    </tr>
+    </tbody>
+    </thead>
+</table>
+
+
 <div>
-    <h4 th:text="'用户名：' + ${session.loginUser.username}"></h4>
-    <a href="/logout">退出登录</a>
-    <hr>
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>用户名</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${pageInfo.list}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td>
-                <a href="">修改</a>
-                <a href="">删除</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <a href="/user/list?page=1"> 首页 </a>
+    <a th:if="${pageInfo.hasPreviousPage}" th:href="@{'/user/list?page='+${pageInfo.prePage}}"> 上一页</a>
+    <a th:if="${pageInfo.hasNextPage}" th:href="@{'/user/list?page='+${pageInfo.nextPage}}"> 下一页</a>
+    <a th:href="@{'/user/list?page='+${pageInfo.pages}}"> 尾页</a><br>
+    <br>
+    <span th:text="'当前第 ' + ${pageInfo.pageNum} + ' 页 | '"></span>
+    <span th:text="'共 '+${pageInfo.pages}+' 页'"></span>
 </div>
+
 </body>
 </html>

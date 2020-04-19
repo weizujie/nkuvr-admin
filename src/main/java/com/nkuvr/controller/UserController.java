@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkuvr.pojo.User;
 import com.nkuvr.service.IUserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,18 +29,11 @@ public class UserController {
     private IUserService userService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String toUserList(@RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
-                             @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
-                             Model model) {
-        try {
-            // 分页查询， 使用 pagehelper 插件
-            PageHelper.startPage(pageNum, pageSize);
-            List<User> userList = userService.findAll();
-            PageInfo<User> pageInfo = new PageInfo<>(userList);
-            model.addAttribute("pageInfo", pageInfo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String toUserList(@RequestParam(name = "page",defaultValue = "1") Integer pageNum, Model model) {
+        PageHelper.startPage(pageNum, 5);
+        List<User> userList = userService.findAll();
+        PageInfo<User> pageInfo = new PageInfo<>(userList, 5);
+        model.addAttribute("pageInfo", pageInfo);
         return "user/user_list";
     }
 

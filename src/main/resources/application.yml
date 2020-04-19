@@ -26,9 +26,8 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 分页配置
 pagehelper:
+  reasonable: true  #开启优化，如果开启优化，在分页页码结果没有数据的时候,会显示有数据的页码数据
+  supportMethodsArguments: true #是否支持接口参数来传递分页参数，默认false
   params: count=countSql
-  reasonable: true
-  support-methods-arguments: true
   helper-dialect: mysql

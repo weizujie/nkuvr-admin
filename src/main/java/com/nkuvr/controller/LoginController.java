@@ -36,7 +36,7 @@ public class LoginController {
 
     @RequestMapping(value = "/doAjaxLogin")
     @ResponseBody
-    public Object doAjaxLogin(User user, HttpSession session) {
+    public Result doAjaxLogin(User user, HttpSession session) {
 
         Result result = new Result();
         User dbUser = userService.queryForLogin(user);
