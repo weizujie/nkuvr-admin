@@ -8,6 +8,7 @@
 <div th:replace="fragment/_fragment::sidebar"></div>
 <div style="text-align: center">
     <table border="1" style="margin: auto; width: 60%;">
+        <h3>用户列表</h3>
         <thead>
         <tr>
             <th>Id</th>
@@ -23,14 +24,15 @@
             <td th:text="${user.password}"></td>
             <td>
                 <a th:href="@{'/user/edit/' + ${user.id}}">修改</a>
-                <a href="">删除</a>
+                <a th:href="'javascript:doDelete('+ ${user.id} +')'">删除</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
-
+<form id="formId" METHOD="post">
+    <input type="hidden" name="_method" th:value="DELETE"/>
+</form>
 <div style="text-align: center">
     <a href="/user/list?page=1"> 首页 </a>
     <a th:if="${pageInfo.hasPreviousPage}" th:href="@{'/user/list?page='+${pageInfo.prePage}}"> 上一页</a>
@@ -41,5 +43,33 @@
     <span th:text="'共 '+${pageInfo.pages}+' 页'"></span>
 </div>
 <div th:replace="fragment/_fragment::footer"></div>
+<script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
+<script src="../../layer/layer.js"></script>
+<script>
+    function doDelete(id) {
+        layer.confirm("确认删除该用户吗？", {btn: ['确认', '取消']}, function (cindex) {
+            $.ajax({
+                type: "post",
+                url: "/user/delete/" + id,
+                data: {
+                    "id": id
+                },
+                success: function (result) {
+                    if (result.success) {
+                        // 删除成功
+                        layer.msg("删除成功", {time: 1000, icon: 6});
+                        window.location.href = "/user/list";
+                    } else {
+                        // 删除失败
+                        layer.msg("删除失败，请重新操作", {time: 1000, icon: 5, shift: 6});
+                    }
+                }
+            });
+            layer.close(cindex);
+        }, function (cindex) {
+            layer.close(cindex);
+        });
+    }
+</script>
 </body>
 </html>

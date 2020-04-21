@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nkuvr.dao.UserMapper">
-    <update id="userEdit" parameterType="com.nkuvr.pojo.User">
+    <update id="userEdit">
         update sys_user
         <set>
             <if test="username != null">
@@ -15,6 +15,9 @@
         </set>
         where id = #{id}
     </update>
+    <delete id="deleteUserById">
+        delete from sys_user where id = #{id}
+    </delete>
     <select id="login" resultType="com.nkuvr.pojo.User">
         select * from sys_user where username = #{username} and password = #{password}
     </select>

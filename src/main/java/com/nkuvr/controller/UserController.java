@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -50,10 +49,25 @@ public class UserController {
     @ResponseBody
     public Result doUserEdit(User user) {
         Result result = new Result();
-        int dbUser = userService.userEdit(user);
-        if (dbUser != 0) {
+        try {
+            userService.userEdit(user);
             result.setSuccess(true);
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public Result doUserDelete(@PathVariable Long id) {
+        Result result = new Result();
+        try {
+            userService.deleteUserById(id);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
             result.setSuccess(false);
         }
         return result;

@@ -17,5 +17,7 @@ public interface IUserService {
 
     User login(User user);
 
-    int userEdit(User user);
+    void userEdit(User user);
+
+    void deleteUserById(Long id);
 }

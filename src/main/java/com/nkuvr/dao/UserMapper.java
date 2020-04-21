@@ -18,5 +18,8 @@ public interface UserMapper {
 
     User login(User user);
 
-    int userEdit(User user);
+    void userEdit(User user);
+
+    void deleteUserById(@Param("id") Long id);
+
 }
