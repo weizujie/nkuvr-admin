@@ -38,14 +38,14 @@ public class UserController {
         return "user/user_list";
     }
 
-    @RequestMapping("/edit/{id}")
+    @RequestMapping("/toEdit/{id}")
     public String toUserEdit(@PathVariable Long id, Model model) {
         User dbUser = userService.findUserById(id);
         model.addAttribute("userInfo", dbUser);
         return "user/user_edit";
     }
 
-    @RequestMapping("/doEdit")
+    @RequestMapping("/edit")
     @ResponseBody
     public Result doUserEdit(User user) {
         Result result = new Result();

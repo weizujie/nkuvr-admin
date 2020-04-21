@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Nkuvr 后台管理系统</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/signin.css">
 </head>
 <body>
-<div class="login" style="text-align: center">
-    <form>
-        <h3>用户名密码登录</h3>
-        <table>
-            <label for="username"></label><input id="username" name="username" type="text"
-                                                 placeholder="用户名"/><br><br>
-            <label for="password"></label><input id="password" name="password" type="password"
-                                                 placeholder="密码"/><br><br>
-            <a href="javascript:void(0);" onclick="return doLogin();">登录</a>
-        </table>
+<div class="container">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">用户名密码登录</h2>
+        <label for="username" class="sr-only"></label>
+        <input type="text" id="username" class="form-control" placeholder="请输入用户名">
+        <label for="password" class="sr-only"></label>
+        <input type="password" id="password" class="form-control" placeholder="请输入密码">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> 记住我
+            </label>
+        </div>
+        <a class="btn btn-lg btn-primary btn-block" href="javascript:void(0);" onclick="return doLogin();">登录</a>
     </form>
+
 </div>
+
 <script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
 <script src="layer/layer.js"></script>
 <script type="text/javascript">
@@ -54,6 +61,7 @@
                 }
             }
         });
+        return false;
     }
 </script>
 </body>

@@ -2,18 +2,24 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>用户列表 - Nkuvr 后台管理系统</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragment/_fragment::navbar"></div>
 <div th:replace="fragment/_fragment::sidebar"></div>
 <div style="text-align: center">
-    <table border="1" style="margin: auto; width: 60%;">
-        <h3>用户列表</h3>
+    <a href="/user/toAdd" class="btn btn-success">添加用户</a><br>
+    <table border="1" style="margin: auto; width: 60%;" class=".table-bordered">
         <thead>
         <tr>
             <th>Id</th>
             <th>用户名</th>
-            <th>密码</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>状态</th>
+            <th>备注</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -21,10 +27,15 @@
         <tr>
             <td th:text="${user.id}"></td>
             <td th:text="${user.username}"></td>
-            <td th:text="${user.password}"></td>
+            <td th:text="${user.studentNumber}"></td>
+            <td th:text="${user.realName}"></td>
+            <td th:text="${user.state}=='0'?'启用':'禁用'"></td>
+            <td th:text="${user.remark}"></td>
+            <td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></td>
             <td>
-                <a th:href="@{'/user/edit/' + ${user.id}}">修改</a>
-                <a th:href="'javascript:doDelete('+ ${user.id} +')'">删除</a>
+                <a th:href="@{'/user/toEdit/' + ${user.id}}" class="btn btn-primary">修改</a>
+                <a th:href="'javascript:doDelete('+ ${user.id} +')'" class="btn btn-danger">删除</a>
             </td>
         </tr>
         </tbody>
@@ -33,28 +44,58 @@
 <form id="formId" METHOD="post">
     <input type="hidden" name="_method" th:value="DELETE"/>
 </form>
-<div style="text-align: center">
-    <a href="/user/list?page=1"> 首页 </a>
-    <a th:if="${pageInfo.hasPreviousPage}" th:href="@{'/user/list?page='+${pageInfo.prePage}}"> 上一页</a>
-    <a th:if="${pageInfo.hasNextPage}" th:href="@{'/user/list?page='+${pageInfo.nextPage}}"> 下一页</a>
-    <a th:href="@{'/user/list?page='+${pageInfo.pages}}"> 尾页</a><br>
+<nav style="text-align: center">
     <br>
-    <span th:text="'当前第 ' + ${pageInfo.pageNum} + ' 页 | '"></span>
-    <span th:text="'共 '+${pageInfo.pages}+' 页'"></span>
-</div>
+    <br>
+    <div>
+        当前第 [[${pageInfo.pageNum}]] 页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+    </div>
+    <br>
+    <ul class="pagination" style="margin: auto; width: 10%;">
+        <li th:if="${pageInfo.hasPreviousPage}">
+            <a th:href="'/user/list?page=1'">首页</a>
+        </li>
+        <li class="prev" th:if="${pageInfo.hasPreviousPage}">
+            <a th:href="'/user/list?page='+${pageInfo.prePage}">
+                <i class="ace-icon fa fa-angle-double-left"></i>
+            </a>
+        </li>
+        <li th:each="nav:${pageInfo.navigatepageNums}">
+            <a th:href="'/user/list?page='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+            <span th:if="${nav == pageInfo.pageNum}" th:text="${nav}"></span>
+        </li>
+
+        <li class="next" th:if="${pageInfo.hasNextPage}">
+            <a th:href="'/user/list?page='+${pageInfo.nextPage}">
+                <i class="ace-icon fa fa-angle-double-right"></i>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="'/user/list?page='+${pageInfo.pages}">尾页</a>
+        </li>
+    </ul>
+</nav>
+
+
 <div th:replace="fragment/_fragment::footer"></div>
 <script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
 <script src="../../layer/layer.js"></script>
 <script>
     function doDelete(id) {
-        layer.confirm("确认删除该用户吗？", {btn: ['确认', '取消']}, function (cindex) {
+        var loadingIndex = null;
+        layer.confirm("确认删除该用户吗？", {btn: ['确认', '取消']}, function () {
             $.ajax({
                 type: "post",
                 url: "/user/delete/" + id,
                 data: {
                     "id": id
                 },
+                beforeSend: function () {
+                    loadingIndex = layer.msg("处理中", {icon: 16});
+                },
                 success: function (result) {
+                    layer.close(loadingIndex);
                     if (result.success) {
                         // 删除成功
                         layer.msg("删除成功", {time: 1000, icon: 6});
@@ -65,10 +106,8 @@
                     }
                 }
             });
-            layer.close(cindex);
-        }, function (cindex) {
-            layer.close(cindex);
         });
+        return false;
     }
 </script>
 </body>

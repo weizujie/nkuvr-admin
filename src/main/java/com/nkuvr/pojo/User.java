@@ -2,6 +2,8 @@ package com.nkuvr.pojo;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 用户类 User
  *
@@ -16,5 +18,11 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private String realName;
+    private String studentNumber;
+    private String remark;
+    private Integer state;
+    private Date createTime;
+    private Date updateTime;
 
 }
