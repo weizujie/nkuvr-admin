@@ -23,29 +23,49 @@ public class LoginController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * 用户登录页面
+     *
+     * @return
+     */
     @RequestMapping(value = {"/", "/login"})
     public String toLogin() {
         return "login";
     }
 
-    @RequestMapping(value = "/logout")
-    public String toLogout(HttpSession session) {
-        session.invalidate();
-        return "redirect:login";
-    }
-
-    @RequestMapping(value = "/doAjaxLogin")
+    /**
+     * 处理用户登录
+     *
+     * @param user
+     * @param session
+     * @return
+     */
+    @RequestMapping("/doLogin")
     @ResponseBody
-    public Result doAjaxLogin(User user, HttpSession session) {
-
+    public Result doLogin(User user, HttpSession session) {
         Result result = new Result();
-        User dbUser = userService.queryForLogin(user);
+        User dbUser = userService.login(user);
         if (dbUser != null) {
+            // 登录成功
             session.setAttribute("loginUser", dbUser);
             result.setSuccess(true);
         } else {
+            // 登录失败
             result.setSuccess(false);
         }
         return result;
+    }
+
+
+    /**
+     * 处理用户退出
+     *
+     * @param session
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String doLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 }

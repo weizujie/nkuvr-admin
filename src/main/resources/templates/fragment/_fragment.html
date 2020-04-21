@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="navbar">
+    <h4 th:text="'用户名：' + ${session.loginUser.username}"></h4>
+    <a href="/logout">退出登录</a>
+    <hr>
+</div>
+<div th:fragment="sidebar">
+    <ul>
+        <li>用户管理</li>
+        <ul>
+            <li><a href="/user/list">用户列表</a></li>
+        </ul>
+    </ul>
+</div>
+<div style="text-align: center" th:fragment="footer">
+    Copyright &copy; 2020 Nkuvr.com
+</div>
+</body>
+</html>

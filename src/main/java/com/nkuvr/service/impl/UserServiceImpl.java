@@ -28,7 +28,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User queryForLogin(User user) {
-        return userMapper.queryForLogin(user);
+    public User findUserById(Long id) {
+        return userMapper.findUserById(id);
+    }
+
+    @Override
+    public User login(User user) {
+        return userMapper.login(user);
+    }
+
+    @Override
+    public int userEdit(User user) {
+        return userMapper.userEdit(user);
     }
 }

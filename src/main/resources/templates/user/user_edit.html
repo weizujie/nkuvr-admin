@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Nkuvr 后台管理系统</title>
@@ -7,22 +7,25 @@
 <body>
 <div class="login" style="text-align: center">
     <form>
+        <input type="hidden" id="id" name="id" th:value="${userInfo.id}">
         <table>
             <label for="username"></label><input id="username" name="username" type="text"
-                                                 placeholder="用户名"/><br>
-            <label for="password"></label><input id="password" name="password" type="password"
-                                                 placeholder="密码"/><br>
-            <a href="javascript:void(0);" onclick="return doLogin();">登录</a>
+                                                 th:value="${userInfo.username}"/><br>
+            <label for="password"></label><input id="password" name="password" type="text"
+                                                 th:value="${userInfo.password}"/><br>
+            <a href="javascript:void(0);" onclick="return doEdit();">更新</a>
         </table>
     </form>
 </div>
-<script src="layer/jquery.min.js"></script>
-<script src="layer/layer.js"></script>
+<script src="../../layer/jquery.min.js"></script>
+<script src="../../layer/layer.js"></script>
 <script type="text/javascript">
-    function doLogin() {
-        var username = $("#username").val();
-        var password = $("#password").val();
+    function doEdit() {
+        var id = $('#id').val();
+        var username = $('#username').val();
+        var password = $('#password').val();
         var loadingIndex = null;
+
         if (username === "") {
             layer.msg("用户名不能为空，请输入!", {time: 1000, icon: 5, shift: 6});
             return;
@@ -33,10 +36,11 @@
         }
         $.ajax({
             type: "post",
-            url: "/doLogin",
+            url: "/user/doEdit",
             async: false,
             dataType: "json",
             data: {
+                "id": id,
                 "username": username,
                 "password": password
             },
@@ -46,10 +50,10 @@
             success: function (result) {
                 layer.close(loadingIndex);
                 if (result.success) {
-                    layer.msg("登录成功", {time: 1000, icon: 6})
+                    layer.msg("用户信息修改成功", {time: 1000, icon: 6})
                     window.location.href = "/user/list";
                 } else {
-                    layer.msg("用户名或密码错误，请重新输入", {time: 1000, icon: 5, shift: 6});
+                    layer.msg("用户信息修改失败，请重新操作", {time: 1000, icon: 5, shift: 6});
                 }
             }
         });

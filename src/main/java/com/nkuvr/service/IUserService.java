@@ -13,5 +13,9 @@ import java.util.List;
 public interface IUserService {
     List<User> findAll();
 
-    User queryForLogin(User user);
+    User findUserById(Long id);
+
+    User login(User user);
+
+    int userEdit(User user);
 }

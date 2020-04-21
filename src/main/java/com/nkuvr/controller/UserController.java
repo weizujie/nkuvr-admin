@@ -2,16 +2,18 @@ package com.nkuvr.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nkuvr.pojo.Result;
 import com.nkuvr.pojo.User;
 import com.nkuvr.service.IUserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -22,14 +24,14 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String toUserList(@RequestParam(name = "page",defaultValue = "1") Integer pageNum, Model model) {
+    @RequestMapping("/list")
+    public String toUserList(@RequestParam(name = "page", defaultValue = "1") Integer pageNum, Model model) {
         PageHelper.startPage(pageNum, 5);
         List<User> userList = userService.findAll();
         PageInfo<User> pageInfo = new PageInfo<>(userList, 5);
@@ -37,5 +39,24 @@ public class UserController {
         return "user/user_list";
     }
 
+    @RequestMapping("/edit/{id}")
+    public String toUserEdit(@PathVariable Long id, Model model) {
+        User dbUser = userService.findUserById(id);
+        model.addAttribute("userInfo", dbUser);
+        return "user/user_edit";
+    }
+
+    @RequestMapping("/doEdit")
+    @ResponseBody
+    public Result doUserEdit(User user) {
+        Result result = new Result();
+        int dbUser = userService.userEdit(user);
+        if (dbUser != 0) {
+            result.setSuccess(true);
+        } else {
+            result.setSuccess(false);
+        }
+        return result;
+    }
 
 }

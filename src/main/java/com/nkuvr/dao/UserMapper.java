@@ -14,6 +14,9 @@ import java.util.List;
 public interface UserMapper {
     List<User> findAll();
 
-    User queryForLogin(User user);
+    User findUserById(@Param("id") Long id);
 
+    User login(User user);
+
+    int userEdit(User user);
 }
