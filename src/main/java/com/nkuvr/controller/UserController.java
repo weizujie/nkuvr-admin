@@ -141,4 +141,36 @@ public class UserController {
     }
 
 
+    /**
+     * 跳转到个人中心页面
+     *
+     * @return
+     */
+    @RequestMapping("/profile/{id}")
+    public String toProfile(@PathVariable Long id, Model model) {
+        User dbUser = userService.findUserById(id);
+        model.addAttribute("userInfo", dbUser);
+        return "user/user_profile";
+    }
+
+    /**
+     * 个人中心信息修改
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping("/doProfileEdit")
+    @ResponseBody
+    public Result doUseProfileEdit(User user) {
+        Result result = new Result();
+        try {
+            userService.userEdit(user);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
 }

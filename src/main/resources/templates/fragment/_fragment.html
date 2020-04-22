@@ -14,21 +14,23 @@
         <nav class="sidebar-main">
             <ul class="nav nav-drawer">
                 <li class="nav-item"><a href="/user/index"><i class="mdi mdi-home"></i> 后台首页</a></li>
+
+
                 <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> UI 元素</a>
+                    <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i>用户管理</a>
                     <ul class="nav nav-subnav">
-                        <li><a href="lyear_ui_buttons.html">按钮</a></li>
+                        <li><a href="/user/list">用户列表</a></li>
+                        <li><a href="/user/add">新增用户</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 用户管理</a>
+                    <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 预约管理</a>
                     <ul class="nav nav-subnav">
-                        <li><a href="/user/list">用户列表</a></li>
-                        <li><a href="/user/add">新增用户</a></li>
-                        <li><a href="#">设置权限</a></li>
+                        <li><a href="#">预约列表</a></li>
                     </ul>
                 </li>
+
             </ul>
         </nav>
 
@@ -57,12 +59,12 @@
             <ul class="topbar-right">
                 <li class="dropdown dropdown-profile">
                     <a href="javascript:void(0)" data-toggle="dropdown">
-                        <img class="img-avatar img-avatar-48 m-r-10" src="../../images/users/avatar.jpg" alt="笔下光年"/>
+                        <img class="img-avatar img-avatar-48 m-r-10" src="../../images/users/avatar.jpg" alt="Admin"/>
                         <span th:text="${session.loginUser.username}"> <span class="caret"></span></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="/user/toProfile"><i class="mdi mdi-account"></i> 个人信息</a></li>
-                        <li><a href="/user/toChangePassword"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
+                        <li><a th:href="@{'/user/profile/' + ${session.loginUser.id}}"><i class="mdi mdi-account"></i> 个人信息</a></li>
+                        <li><a href="/user/changePassword"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
                         </li>
                         <li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
                         <li class="divider"></li>
