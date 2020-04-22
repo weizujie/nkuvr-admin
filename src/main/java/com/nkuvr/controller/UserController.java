@@ -29,6 +29,13 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * 跳转到用户列表页面并展用户数据
+     *
+     * @param pageNum
+     * @param model
+     * @return
+     */
     @RequestMapping("/list")
     public String toUserList(@RequestParam(name = "page", defaultValue = "1") Integer pageNum, Model model) {
         PageHelper.startPage(pageNum, 5);
@@ -38,14 +45,27 @@ public class UserController {
         return "user/user_list";
     }
 
-    @RequestMapping("/toEdit/{id}")
+    /**
+     * 跳转用户编辑界面并展示用户数据
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("/edit/{id}")
     public String toUserEdit(@PathVariable Long id, Model model) {
         User dbUser = userService.findUserById(id);
         model.addAttribute("userInfo", dbUser);
         return "user/user_edit";
     }
 
-    @RequestMapping("/edit")
+    /**
+     * 处理用户编辑
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping("/doEdit")
     @ResponseBody
     public Result doUserEdit(User user) {
         Result result = new Result();
@@ -59,6 +79,12 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 处理用户删除
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping("/delete/{id}")
     @ResponseBody
     public Result doUserDelete(@PathVariable Long id) {
@@ -72,5 +98,36 @@ public class UserController {
         }
         return result;
     }
+
+
+    /**
+     * 跳转到用户新增页面
+     *
+     * @return
+     */
+    @RequestMapping("/add")
+    public String toUserAdd() {
+        return "user/user_add";
+    }
+
+    /**
+     * 处理用户新增
+     * @param user
+     * @return
+     */
+    @RequestMapping("/doAdd")
+    @ResponseBody
+    public Result doUserAdd(User user) {
+        Result result = new Result();
+        try {
+            userService.userAdd(user);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
 
 }

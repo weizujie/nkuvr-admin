@@ -1,86 +1,168 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <title>用户列表 - Nkuvr 后台管理系统</title>
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="author" content="yinqi">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="../../css/style.min.css" rel="stylesheet">
 </head>
+
 <body>
-<div th:replace="fragment/_fragment::navbar"></div>
-<div th:replace="fragment/_fragment::sidebar"></div>
-<div style="text-align: center">
-    <a href="/user/toAdd" class="btn btn-success">添加用户</a><br>
-    <table border="1" style="margin: auto; width: 60%;" class=".table-bordered">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>用户名</th>
-            <th>学号</th>
-            <th>姓名</th>
-            <th>状态</th>
-            <th>备注</th>
-            <th>创建时间</th>
-            <th>更新时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody th:each="user : ${pageInfo.list}">
-        <tr>
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.studentNumber}"></td>
-            <td th:text="${user.realName}"></td>
-            <td th:text="${user.state}=='0'?'启用':'禁用'"></td>
-            <td th:text="${user.remark}"></td>
-            <td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></td>
-            <td>
-                <a th:href="@{'/user/toEdit/' + ${user.id}}" class="btn btn-primary">修改</a>
-                <a th:href="'javascript:doDelete('+ ${user.id} +')'" class="btn btn-danger">删除</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<form id="formId" METHOD="post">
-    <input type="hidden" name="_method" th:value="DELETE"/>
-</form>
-<nav style="text-align: center">
-    <br>
-    <br>
-    <div>
-        当前第 [[${pageInfo.pageNum}]] 页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside th:replace="fragment/_fragment::navbar"></aside>
+
+
+        <!--头部信息-->
+        <header th:replace="fragment/_fragment::sidebar"></header>
+
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-toolbar clearfix">
+                                <form class="pull-right search-bar" method="get" action="#!" role="form">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <input type="hidden" name="search_field" id="search-field"
+                                                   value="title">
+                                            <button class="btn btn-default dropdown-toggle" id="search-btn"
+                                                    data-toggle="dropdown" type="button" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                学号 <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a tabindex="-1" href="javascript:void(0)"
+                                                       data-field="title">学号</a>
+                                                </li>
+                                                <li><a tabindex="-1" href="javascript:void(0)"
+                                                       data-field="cat_name">姓名</a></li>
+                                            </ul>
+                                        </div>
+                                        <input type="text" class="form-control" value="" name="keyword"
+                                               placeholder="请输入名称">
+                                    </div>
+                                </form>
+                                <div class="toolbar-btn-action">
+                                    <a class="btn btn-primary m-r-5" href="/user/add"><i class="mdi mdi-plus"></i>
+                                        新增</a>
+                                    <a class="btn btn-success m-r-5" href="#!"><i class="mdi mdi-check"></i> 启用</a>
+                                    <a class="btn btn-warning m-r-5" href="#!"><i
+                                            class="mdi mdi-block-helper"></i>
+                                        禁用</a>
+                                    <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <label class="lyear-checkbox checkbox-primary">
+                                                    <input type="checkbox" id="check-all"><span></span>
+                                                </label>
+                                            </th>
+                                            <th>编号</th>
+                                            <th>用户名</th>
+                                            <th>学号</th>
+                                            <th>姓名</th>
+                                            <th>性别</th>
+                                            <th>状态</th>
+                                            <th>备注</th>
+                                            <th>创建时间</th>
+                                            <th>更新时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="user : ${pageInfo.list}">
+                                            <td>
+                                                <label class="lyear-checkbox checkbox-primary">
+                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
+                                                </label>
+                                            </td>
+                                            <td th:text="${user.id}"></td>
+                                            <td th:text="${user.username}"></td>
+                                            <td th:text="${user.studentNumber}"></td>
+                                            <td th:text="${user.realName}"></td>
+                                            <td th:text="${user.gender==0?'男':'女'}"></td>
+                                            <td th:text="${user.state==0?'启用':'禁用'}"></td>
+                                            <td th:text="${user.remark}"></td>
+                                            <td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+                                            <td th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-xs btn-default"
+                                                       th:href="@{'/user/edit/' + ${user.id}}" title="编辑"
+                                                       data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                    <a class="btn btn-xs btn-default"
+                                                       th:href="'javascript:doDelete('+ ${user.id} +')'" title="删除"
+                                                       data-toggle="tooltip"><i
+                                                            class="mdi mdi-window-close"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <ul class="pagination">
+
+                                    <p>当前第 [[${pageInfo.pageNum}]] 页 | 共 [[${pageInfo.pages}]] 页 | 一共
+                                        [[${pageInfo.total}]] 条记录</p>
+
+                                    <li th:class="${pageInfo.pageNum == 1 ? 'disabled' : ''}"><a
+                                            th:href="@{'/user/list?page=' + ${pageInfo.pageNum - 1}}"><span>«</span></a>
+                                    </li>
+
+                                    <li th:each="i: ${pageInfo.navigatepageNums}"
+                                        th:class="${pageInfo.pageNum == i} ? 'active' : ''"><a
+                                            th:href="@{'/user/list?page=' + ${i}}"><span>[[ ${i} ]]</span></a></li>
+
+                                    <li th:class="${pageInfo.pageNum == pageInfo.pages ? 'disabled' : ''}"><a
+                                            th:href="@{'/user/list?page=' + ${pageInfo.pageNum + 1}}"><span>»</span></a>
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
     </div>
-    <br>
-    <ul class="pagination" style="margin: auto; width: 10%;">
-        <li th:if="${pageInfo.hasPreviousPage}">
-            <a th:href="'/user/list?page=1'">首页</a>
-        </li>
-        <li class="prev" th:if="${pageInfo.hasPreviousPage}">
-            <a th:href="'/user/list?page='+${pageInfo.prePage}">
-                <i class="ace-icon fa fa-angle-double-left"></i>
-            </a>
-        </li>
-        <li th:each="nav:${pageInfo.navigatepageNums}">
-            <a th:href="'/user/list?page='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
-            <span th:if="${nav == pageInfo.pageNum}" th:text="${nav}"></span>
-        </li>
+</div>
 
-        <li class="next" th:if="${pageInfo.hasNextPage}">
-            <a th:href="'/user/list?page='+${pageInfo.nextPage}">
-                <i class="ace-icon fa fa-angle-double-right"></i>
-            </a>
-        </li>
-
-        <li>
-            <a th:href="'/user/list?page='+${pageInfo.pages}">尾页</a>
-        </li>
-    </ul>
-</nav>
-
-
-<div th:replace="fragment/_fragment::footer"></div>
-<script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="../../js/main.min.js"></script>
 <script src="../../layer/layer.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.search-bar .dropdown-menu a').click(function () {
+            var field = $(this).data('field') || '';
+            $('#search-field').val(field);
+            $('#search-btn').html($(this).text() + ' <span class="caret"></span>');
+        });
+    });
+</script>
 <script>
     function doDelete(id) {
         var loadingIndex = null;

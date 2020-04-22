@@ -46,4 +46,9 @@ public class UserServiceImpl implements IUserService {
     public void deleteUserById(Long id) {
         userMapper.deleteUserById(id);
     }
+
+    @Override
+    public void userAdd(User user) {
+        userMapper.userAdd(user);
+    }
 }

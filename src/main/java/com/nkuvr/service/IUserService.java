@@ -20,4 +20,6 @@ public interface IUserService {
     void userEdit(User user);
 
     void deleteUserById(Long id);
+
+    void userAdd(User user);
 }

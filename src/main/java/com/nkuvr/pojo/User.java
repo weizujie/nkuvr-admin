@@ -21,8 +21,9 @@ public class User {
     private String realName;
     private String studentNumber;
     private String remark;
+    private Integer gender;
     private Integer state;
-    private Date createTime;
-    private Date updateTime;
+    private Date createTime = new Date();
+    private Date updateTime = new Date();
 
 }

@@ -3,31 +3,80 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nkuvr.dao.UserMapper">
+
+    <!-- 用户登录 -->
+    <select id="login" resultType="com.nkuvr.pojo.User">
+        select * from sys_user where username = #{username} and password = #{password}
+    </select>
+
+    <!-- 查询所有用户 -->
+    <select id="findAll" resultType="com.nkuvr.pojo.User">
+        select * from sys_user
+    </select>
+
+    <!-- 根据 id 查询用户 -->
+    <select id="findUserById" resultType="com.nkuvr.pojo.User">
+        select * from sys_user where id = #{id}
+    </select>
+
+    <!-- 用户修改 -->
     <update id="userEdit">
         update sys_user
         <set>
             <if test="username != null">
                 username = #{username},
             </if>
-            <if test="password != null">
-                password = #{password}
+            <if test="studentNumber != null">
+                student_number = #{studentNumber},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="remark != null">
+                remark = #{remark}
             </if>
         </set>
         where id = #{id}
     </update>
+
+    <!-- 用户新增 -->
+    <insert id="userAdd">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="studentNumber != null">student_number,</if>
+            <if test="gender != null">gender,</if>
+            <if test="state != null">state,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="username != null">#{username},</if>
+            <if test="password != null">#{password},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="studentNumber != null">#{studentNumber},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="state != null">#{state},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime}</if>
+        </trim>
+    </insert>
+
+    <!-- 用户删除 -->
     <delete id="deleteUserById">
         delete from sys_user where id = #{id}
     </delete>
-    <select id="login" resultType="com.nkuvr.pojo.User">
-        select * from sys_user where username = #{username} and password = #{password}
-    </select>
-
-    <select id="findAll" resultType="com.nkuvr.pojo.User">
-        select * from sys_user
-    </select>
-
-    <select id="findUserById" resultType="com.nkuvr.pojo.User">
-        select * from sys_user where id = #{id}
-    </select>
 
 </mapper>

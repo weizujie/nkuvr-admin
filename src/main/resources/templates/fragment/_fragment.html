@@ -1,25 +1,95 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="navbar">
-    <h4 th:text="'用户名：' + ${session.loginUser.username}"></h4>
-    <a href="/logout">退出登录</a>
-    <hr>
-</div>
-<div th:fragment="sidebar">
-    <ul>
-        <li>用户管理</li>
-        <ul>
-            <li><a href="/user/list">用户列表</a></li>
-        </ul>
-    </ul>
-</div>
-<div style="text-align: center" th:fragment="footer">
-    <br>
-    <br>
-    <br>
-    <hr>
-    Copyright &copy; 2020 Nkuvr.com
-</div>
+
+<!--左侧导航-->
+<aside class="lyear-layout-sidebar" th:fragment="sidebar">
+
+    <!-- logo -->
+    <div id="logo" class="sidebar-header">
+        <a href="/user/index"><img src="../../images/logo-sidebar.png" title="LightYear" alt="LightYear"/></a>
+    </div>
+    <div class="lyear-layout-sidebar-scroll">
+
+        <nav class="sidebar-main">
+            <ul class="nav nav-drawer">
+                <li class="nav-item"><a href="/user/index"><i class="mdi mdi-home"></i> 后台首页</a></li>
+                <li class="nav-item nav-item-has-subnav">
+                    <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> UI 元素</a>
+                    <ul class="nav nav-subnav">
+                        <li><a href="lyear_ui_buttons.html">按钮</a></li>
+                        <li><a href="lyear_ui_cards.html">卡片</a></li>
+                        <li><a href="lyear_ui_grid.html">格栅</a></li>
+                        <li><a href="lyear_ui_icons.html">图标</a></li>
+                        <li><a href="lyear_ui_tables.html">表格</a></li>
+                        <li><a href="lyear_ui_modals.html">模态框</a></li>
+                        <li><a href="lyear_ui_tooltips_popover.html">提示 / 弹出框</a></li>
+                        <li><a href="lyear_ui_alerts.html">警告框</a></li>
+                        <li><a href="lyear_ui_pagination.html">分页</a></li>
+                        <li><a href="lyear_ui_progress.html">进度条</a></li>
+                        <li><a href="lyear_ui_tabs.html">标签页</a></li>
+                        <li><a href="lyear_ui_typography.html">排版</a></li>
+                        <li><a href="lyear_ui_step.html">步骤</a></li>
+                        <li><a href="lyear_ui_other.html">其他</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-item-has-subnav active open">
+                    <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 用户管理</a>
+                    <ul class="nav nav-subnav">
+                        <li class="active"><a href="/user/list">用户列表</a></li>
+                        <li><a href="/user/add">新增用户</a></li>
+                        <li><a href="#">设置权限</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <p class="copyright">Copyright &copy; 2019 Nkuvr.com</p>
+        </div>
+    </div>
+
+</aside>
+
+<!--头部信息-->
+<header class="lyear-layout-header" th:fragment="navbar">
+
+    <nav class="navbar navbar-default">
+        <div class="topbar">
+
+            <div class="topbar-left">
+                <div class="lyear-aside-toggler">
+                    <span class="lyear-toggler-bar"></span>
+                    <span class="lyear-toggler-bar"></span>
+                    <span class="lyear-toggler-bar"></span>
+                </div>
+                <span class="navbar-page-title"> Nkuvr 后台管理系统 </span>
+            </div>
+
+            <ul class="topbar-right">
+                <li class="dropdown dropdown-profile">
+                    <a href="javascript:void(0)" data-toggle="dropdown">
+                        <img class="img-avatar img-avatar-48 m-r-10" src="../../images/users/avatar.jpg" alt="笔下光年"/>
+                        <span th:text="${session.loginUser.username}"> <span class="caret"></span></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="/user/toProfile"><i class="mdi mdi-account"></i> 个人信息</a></li>
+                        <li><a href="/user/toChangePassword"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
+                        </li>
+                        <li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><i class="mdi mdi-logout-variant"></i> 退出登录</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+</header>
+
+
 </body>
 </html>

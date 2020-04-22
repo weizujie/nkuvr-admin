@@ -22,4 +22,5 @@ public interface UserMapper {
 
     void deleteUserById(@Param("id") Long id);
 
+    void userAdd(User user);
 }
