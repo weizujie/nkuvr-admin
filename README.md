@@ -17,11 +17,14 @@
     - Shiro      1.5.2
     - Thymeleaf  2.2.6
     - Lombok     1.18.12
-    - JPA        2.2.6
-    - IntelliJ IDEA
+    - IntelliJ IDEA 2017
         
 
 ## 日志
+
+- 2020年4月22日
+    - 实现用户新增
+    - 美化前端页面
 
 - 2020年4月21日
     - 实现用户数据更新、删除
