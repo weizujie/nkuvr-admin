@@ -54,4 +54,5 @@ public interface IUserService {
      * @param user
      */
     void userAdd(User user);
+
 }

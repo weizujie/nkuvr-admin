@@ -30,6 +30,16 @@ public class UserController {
     private IUserService userService;
 
     /**
+     * 跳转到后台首页
+     *
+     * @return
+     */
+    @RequestMapping("/index")
+    public String toUserIndex() {
+        return "user/user_index";
+    }
+
+    /**
      * 跳转到用户列表页面并展用户数据
      *
      * @param pageNum
