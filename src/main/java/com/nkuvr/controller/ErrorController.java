@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @Author: weizujie
- * @Date: 2020/4/22
+ * @Date: 2020/4/25
  * @Version: 1.0
- * @Github: https://github.com/byojiaoxianz7
+ * @Github: https://github.com/weizujie
  */
-
 @Controller
 @RequestMapping("/error")
 public class ErrorController {

@@ -8,7 +8,8 @@ import lombok.Data;
  * @Github: https://github.com/weizujie
  */
 @Data
-public class Result {
+public class Lab {
+    private Long id;
+    private String name;
 
-    private boolean success;
 }

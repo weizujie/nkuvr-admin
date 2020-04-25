@@ -10,9 +10,9 @@ import java.util.List;
 
 /**
  * @Author: weizujie
- * @Date: 2020/4/13
+ * @Date: 2020/4/25
  * @Version: 1.0
- * @Github: https://github.com/byojiaoxianz7
+ * @Github: https://github.com/weizujie
  */
 
 @Service
@@ -53,33 +53,4 @@ public class UserServiceImpl implements IUserService {
         return userMapper.login(user);
     }
 
-    /**
-     * 用户修改
-     *
-     * @param user
-     */
-    @Override
-    public void userEdit(User user) {
-        userMapper.userEdit(user);
-    }
-
-    /**
-     * 用户删除
-     *
-     * @param id
-     */
-    @Override
-    public void deleteUserById(Long id) {
-        userMapper.deleteUserById(id);
-    }
-
-    /**
-     * 用户新增
-     *
-     * @param user
-     */
-    @Override
-    public void userAdd(User user) {
-        userMapper.userAdd(user);
-    }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>用户列表 - Nkuvr 后台管理系统</title>
+    <title>预约列表 - Nkuvr 后台管理系统</title>
     <meta name="author" content="yinqi">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/materialdesignicons.min.css" rel="stylesheet">
@@ -73,43 +73,25 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            <th>编号</th>
                                             <th>用户名</th>
-                                            <th>学号</th>
-                                            <th>姓名</th>
-                                            <th>性别</th>
-                                            <th>状态</th>
-                                            <th>备注</th>
-                                            <th>创建时间</th>
-                                            <th>更新时间</th>
+                                            <th>教室号</th>
+                                            <th>预约时间</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="user : ${pageInfo.list}">
+                                        <tr th:each="appointment : ${pageInfo.list}">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
                                                     <input type="checkbox" name="ids[]" value="1"><span></span>
                                                 </label>
                                             </td>
-                                            <td th:text="${user.id}"></td>
-                                            <td th:text="${user.username}"></td>
-                                            <td th:text="${user.studentNumber}"></td>
-                                            <td th:text="${user.realName}"></td>
-                                            <td th:text="${user.gender==0?'男':'女'}"></td>
-                                            <td th:text="${user.state==0?'启用':'禁用'}"></td>
-                                            <td th:text="${user.remark}"></td>
-                                            <td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></td>
-                                            <td th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                                            <td th:text="${appointment.getUser().username}"></td>
+                                            <td th:text="${appointment.getLab().name}"></td>
+                                            <td th:text="${#dates.format(appointment.date, 'yyyy-MM-dd HH:mm')}"></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default"
-                                                       th:href="@{'/user/edit/' + ${user.id}}" title="编辑"
-                                                       data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default"
-                                                       th:href="'javascript:doDelete('+ ${user.id} +')'" title="删除"
-                                                       data-toggle="tooltip"><i
-                                                            class="mdi mdi-window-close"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="'javascript:doAppointment('+ ${appointment.id} +')'" data-toggle="tooltip">点击预约</a>
                                                 </div>
                                             </td>
                                         </tr>

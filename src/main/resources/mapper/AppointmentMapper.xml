@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nkuvr.dao.AppointmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.nkuvr.pojo.Appointment">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="lid" column="lid"/>
+        <result property="date" column="date"/>
+        <association property="lab" javaType="com.nkuvr.pojo.Lab">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+        <association property="user" javaType="com.nkuvr.pojo.User">
+            <id property="id" column="id"/>
+            <id property="username" column="username"/>
+        </association>
+    </resultMap>
+
+
+    <select id="findAppointmentListByUserId" resultType="com.nkuvr.pojo.Appointment" resultMap="BaseResultMap">
+        SELECT u.username , l.name  , a.date
+        FROM sys_appointment a
+        JOIN sys_lab l ON a.lid = l.id
+        JOIN sys_user u ON a.uid = u.id
+        WHERE u.id = #{id}
+    </select>
+</mapper>

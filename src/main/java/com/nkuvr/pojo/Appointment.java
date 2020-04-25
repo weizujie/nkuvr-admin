@@ -3,6 +3,7 @@ package com.nkuvr.pojo;
 import lombok.Data;
 
 import java.util.Date;
+
 /**
  * @Author: weizujie
  * @Date: 2020/4/25
@@ -10,8 +11,11 @@ import java.util.Date;
  * @Github: https://github.com/weizujie
  */
 @Data
-public class User {
+public class Appointment {
     private Long id;
-    private String username;
-    private String password;
+    private Integer uid;
+    private Integer lid;
+    private Date date;
+    private Lab lab;
+    private User user;
 }

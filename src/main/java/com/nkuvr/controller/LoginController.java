@@ -12,11 +12,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @Author: weizujie
- * @Date: 2020/4/13
+ * @Date: 2020/4/25
  * @Version: 1.0
- * @Github: https://github.com/byojiaoxianz7
+ * @Github: https://github.com/weizujie
  */
-
 @Controller
 public class LoginController {
 

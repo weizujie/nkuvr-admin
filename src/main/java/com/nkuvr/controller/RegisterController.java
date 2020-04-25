@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @Author: weizujie
- * @Date: 2020/4/22
+ * @Date: 2020/4/25
  * @Version: 1.0
- * @Github: https://github.com/byojiaoxianz7
+ * @Github: https://github.com/weizujie
  */
-
 @Controller
 public class RegisterController {
 
@@ -37,7 +36,7 @@ public class RegisterController {
     public Result doRegister(User user) {
         Result result = new Result();
         try {
-            userService.userAdd(user);
+            // userService.userAdd(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();

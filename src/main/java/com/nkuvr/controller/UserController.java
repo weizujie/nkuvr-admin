@@ -17,11 +17,10 @@ import java.util.List;
 
 /**
  * @Author: weizujie
- * @Date: 2020/4/17
+ * @Date: 2020/4/25
  * @Version: 1.0
- * @Github: https://github.com/byojiaoxianz7
+ * @Github: https://github.com/weizujie
  */
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -36,7 +35,7 @@ public class UserController {
      */
     @RequestMapping("/index")
     public String toUserIndex() {
-        return "user/user_index";
+        return "user/index";
     }
 
     /**
@@ -52,7 +51,7 @@ public class UserController {
         List<User> userList = userService.findAll();
         PageInfo<User> pageInfo = new PageInfo<>(userList, 5);
         model.addAttribute("pageInfo", pageInfo);
-        return "user/user_list";
+        return "user/list";
     }
 
     /**
@@ -66,7 +65,7 @@ public class UserController {
     public String toUserEdit(@PathVariable Long id, Model model) {
         User dbUser = userService.findUserById(id);
         model.addAttribute("userInfo", dbUser);
-        return "user/user_edit";
+        return "user/edit";
     }
 
     /**
@@ -80,7 +79,7 @@ public class UserController {
     public Result doUserEdit(User user) {
         Result result = new Result();
         try {
-            userService.userEdit(user);
+            //userService.userEdit(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +99,7 @@ public class UserController {
     public Result doUserDelete(@PathVariable Long id) {
         Result result = new Result();
         try {
-            userService.deleteUserById(id);
+            //userService.deleteUserById(id);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +116,7 @@ public class UserController {
      */
     @RequestMapping("/add")
     public String toUserAdd() {
-        return "user/user_add";
+        return "user/add";
     }
 
     /**
@@ -131,7 +130,7 @@ public class UserController {
     public Result doUserAdd(User user) {
         Result result = new Result();
         try {
-            userService.userAdd(user);
+            //userService.userAdd(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,7 +149,7 @@ public class UserController {
     public String toProfile(@PathVariable Long id, Model model) {
         User dbUser = userService.findUserById(id);
         model.addAttribute("userInfo", dbUser);
-        return "user/user_profile";
+        return "user/profile";
     }
 
     /**
@@ -164,7 +163,7 @@ public class UserController {
     public Result doUseProfileEdit(User user) {
         Result result = new Result();
         try {
-            userService.userEdit(user);
+            //userService.userEdit(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
