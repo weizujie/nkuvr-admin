@@ -26,4 +26,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
     public List<Appointment> findAppointmentListByUserId(Long id) {
         return appointmentMapper.findAppointmentListByUserId(id);
     }
+
+    @Override
+    public List<Appointment> findAll() {
+        return appointmentMapper.findAll();
+    }
 }

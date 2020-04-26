@@ -13,4 +13,5 @@ import java.util.List;
 public interface IAppointmentService {
     List<Appointment> findAppointmentListByUserId(Long id);
 
+    List<Appointment> findAll();
 }

@@ -28,16 +28,32 @@ public class AppointmentController {
     private IAppointmentService appointmentService;
 
     /**
-     * 跳转到预约列表
+     * 跳转到 我的预约
      *
      * @return
      */
     @RequestMapping("/{id}")
-    public String toList(@PathVariable("id") Long id,
-                         @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
-                         Model model) {
+    public String toMyAppointmentList(@PathVariable("id") Long id,
+                                      @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
+                                      Model model) {
         PageHelper.startPage(pageNum, 5);
         List<Appointment> appointmentList = appointmentService.findAppointmentListByUserId(id);
+        PageInfo<Appointment> pageInfo = new PageInfo<>(appointmentList, 5);
+        model.addAttribute("pageInfo", pageInfo);
+        return "appointment/my_appointment";
+    }
+
+    /**
+     * 跳转到 预约列表
+     *
+     * @param pageNum
+     * @param model
+     * @return
+     */
+    @RequestMapping("/list")
+    public String toAppointmentList(@RequestParam(name = "page", defaultValue = "1") Integer pageNum, Model model) {
+        PageHelper.startPage(pageNum, 5);
+        List<Appointment> appointmentList = appointmentService.findAll();
         PageInfo<Appointment> pageInfo = new PageInfo<>(appointmentList, 5);
         model.addAttribute("pageInfo", pageInfo);
         return "appointment/list";

@@ -14,8 +14,17 @@ import java.util.List;
 public interface AppointmentMapper {
     /**
      * 根据用户 id 查询用户预约情况
+     *
      * @param id
      * @return
      */
     List<Appointment> findAppointmentListByUserId(@Param("id") Long id);
+
+    /**
+     * 查询所有预约
+     *
+     * @return
+     */
+    List<Appointment> findAll();
+
 }

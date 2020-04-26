@@ -9,22 +9,40 @@
         <result property="uid" column="uid"/>
         <result property="lid" column="lid"/>
         <result property="date" column="date"/>
+        <result property="state" column="state"/>
+        <result property="appointmentNumber" column="appointment_number"/>
         <association property="lab" javaType="com.nkuvr.pojo.Lab">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
+            <result property="galleryful" column="galleryful"/>
         </association>
         <association property="user" javaType="com.nkuvr.pojo.User">
             <id property="id" column="id"/>
-            <id property="username" column="username"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="realName" column="real_name"/>
+            <result property="studentNumber" column="student_number"/>
+            <result property="state" column="state"/>
+            <result property="gender" column="gender"/>
+            <result property="remark" column="remark"/>
+            <result property="createTime" column="create_time"/>
+            <result property="updateTime" column="update_time"/>
         </association>
     </resultMap>
 
 
     <select id="findAppointmentListByUserId" resultType="com.nkuvr.pojo.Appointment" resultMap="BaseResultMap">
-        SELECT u.username , l.name  , a.date
+        SELECT *
         FROM sys_appointment a
         JOIN sys_lab l ON a.lid = l.id
         JOIN sys_user u ON a.uid = u.id
         WHERE u.id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.nkuvr.pojo.Appointment" resultMap="BaseResultMap">
+        SELECT *
+        FROM sys_appointment a
+        JOIN sys_lab l ON a.lid = l.id
+        JOIN sys_user u ON a.uid = u.id
     </select>
 </mapper>

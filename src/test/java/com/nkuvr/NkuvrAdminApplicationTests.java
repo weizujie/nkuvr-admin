@@ -18,7 +18,7 @@ class NkuvrAdminApplicationTests {
     void findAppointmentListByUserIdTest() {
         List<Appointment> list = appointmentService.findAppointmentListByUserId(1L);
         for (Appointment appointment : list) {
-            System.out.println(appointment);
+            System.out.println(appointment.getUser());
         }
     }
 

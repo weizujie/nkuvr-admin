@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>预约列表 - Nkuvr 后台管理系统</title>
+    <title>我的 - Nkuvr 后台管理系统</title>
     <meta name="author" content="yinqi">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/materialdesignicons.min.css" rel="stylesheet">
@@ -70,12 +70,10 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            <th>用户名</th>
                                             <th>学号</th>
                                             <th>姓名</th>
                                             <th>教室号</th>
                                             <th>预约人数</th>
-                                            <th>容纳人数</th>
                                             <th>状态</th>
                                             <th>预约时间</th>
                                             <th>操作</th>
@@ -88,12 +86,10 @@
                                                     <input type="checkbox" name="ids[]" value="1"><span></span>
                                                 </label>
                                             </td>
-                                            <td th:text="${appointment.getUser().username}"></td>
                                             <td th:text="${appointment.getUser().studentNumber}"></td>
                                             <td th:text="${appointment.getUser().realName}"></td>
                                             <td th:text="${appointment.getLab().name}"></td>
                                             <td th:text="${appointment.appointmentNumber}"></td>
-                                            <td th:text="${appointment.getLab().galleryful}"></td>
                                             <td th:switch="${appointment.state}">
                                                 <font th:case="0" class="text-success">通过</font>
                                                 <font th:case="1" class="text-danger">不通过</font>
@@ -109,7 +105,7 @@
                                                     <a class="btn btn-xs btn-default"
                                                        th:href="'javascript:doCancel('+ ${appointment.id} +')'"
                                                        data-toggle="tooltip"><i
-                                                            class="mdi mdi-window-close"></i>删除</a>
+                                                            class="mdi mdi-window-close"></i>取消</a>
                                                 </div>
                                             </td>
                                         </tr>

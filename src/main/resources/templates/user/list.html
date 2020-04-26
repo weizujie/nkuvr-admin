@@ -94,13 +94,16 @@
                                             </td>
                                             <td th:text="${user.id}"></td>
                                             <td th:text="${user.username}"></td>
-                                            <!--<td th:text="${user.studentNumber}"></td>-->
-                                            <!--<td th:text="${user.realName}"></td>-->
-                                            <!--<td th:text="${user.gender==0?'男':'女'}"></td>-->
-                                            <!--<td th:text="${user.state==0?'启用':'禁用'}"></td>-->
-                                            <!--<td th:text="${user.remark}"></td>-->
-                                            <!--<td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></td>-->
-                                            <!--<td th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></td>-->
+                                            <td th:text="${user.studentNumber}"></td>
+                                            <td th:text="${user.realName}"></td>
+                                            <td th:text="${user.gender==0?'男':'女'}"></td>
+                                            <td th:switch="${user.state}">
+                                                <font th:case="0" class="text-success">正常</font>
+                                                <font th:case="1" class="text-danger">禁用</font>
+                                            </td>
+                                            <td th:text="${user.remark==0?'管理员':'学生'}"></td>
+                                            <td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+                                            <td th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default"

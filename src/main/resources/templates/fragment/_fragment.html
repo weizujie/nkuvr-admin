@@ -27,6 +27,7 @@
                 <li class="nav-item nav-item-has-subnav">
                     <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 预约管理</a>
                     <ul class="nav nav-subnav">
+                        <li><a href="/appointment/list">预约列表</a></li>
                         <li><a th:href="@{'/appointment/' + ${session.loginUser.id}}">我的预约</a></li>
                         <li><a href="#">新增预约</a></li>
                     </ul>
@@ -35,7 +36,7 @@
         </nav>
 
         <div class="sidebar-footer">
-            <p class="copyright">Copyright &copy; 2019 Nkuvr.com</p>
+            <p class="copyright">Copyright &copy; 2020 Nkuvr.com</p>
         </div>
     </div>
 
@@ -63,7 +64,8 @@
                         <span th:text="${session.loginUser.username}"> <span class="caret"></span></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a th:href="@{'/user/profile/' + ${session.loginUser.id}}"><i class="mdi mdi-account"></i> 个人信息</a></li>
+                        <li><a th:href="@{'/user/profile/' + ${session.loginUser.id}}"><i class="mdi mdi-account"></i>
+                            个人信息</a></li>
                         <li><a href="/user/changePassword"><i class="mdi mdi-lock-outline"></i> 修改密码</a>
                         </li>
                         <li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>

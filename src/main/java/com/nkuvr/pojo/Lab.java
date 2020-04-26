@@ -11,5 +11,5 @@ import lombok.Data;
 public class Lab {
     private Long id;
     private String name;
-
+    private Integer galleryful;
 }
