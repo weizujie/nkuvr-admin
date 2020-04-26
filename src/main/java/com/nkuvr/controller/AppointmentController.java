@@ -3,6 +3,7 @@ package com.nkuvr.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkuvr.pojo.Appointment;
+import com.nkuvr.pojo.Result;
 import com.nkuvr.service.IAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ public class AppointmentController {
      *
      * @return
      */
-    @RequestMapping("/{id}")
+    @RequestMapping("/list/{id}")
     public String toMyAppointmentList(@PathVariable("id") Long id,
                                       @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
                                       Model model) {
@@ -58,5 +59,35 @@ public class AppointmentController {
         model.addAttribute("pageInfo", pageInfo);
         return "appointment/list";
     }
+
+    /**
+     * 跳转到 新增预约
+     *
+     * @return
+     */
+    @RequestMapping("/add")
+    public String toAppointmentAdd() {
+        return "appointment/add";
+    }
+
+    /**
+     * 处理 新增预约
+     *
+     * @param appointment
+     * @return
+     */
+    @RequestMapping("/doAppointmentAdd")
+    public Result doAppointmentAdd(Appointment appointment) {
+        Result result = new Result();
+        try {
+            appointmentService.appointmentAdd(appointment);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
 
 }

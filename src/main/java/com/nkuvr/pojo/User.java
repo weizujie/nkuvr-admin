@@ -1,6 +1,7 @@
 package com.nkuvr.pojo;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -10,9 +11,11 @@ import java.util.Date;
  * @Version: 1.0
  * @Github: https://github.com/weizujie
  */
+
 @Data
 public class User {
-    private Long id;
+
+    private String id;
     private String username;
     private String password;
     private String studentNumber;

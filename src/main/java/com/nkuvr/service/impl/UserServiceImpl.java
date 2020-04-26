@@ -53,4 +53,45 @@ public class UserServiceImpl implements IUserService {
         return userMapper.login(user);
     }
 
+    /**
+     * 根据 id 删除用户
+     *
+     * @param id
+     */
+    @Override
+    public void deleteUserById(Long id) {
+        userMapper.deleteUserById(id);
+    }
+
+
+    /**
+     * 管理员对用户进行编辑
+     *
+     * @param user
+     */
+    @Override
+    public void userEdit(User user) {
+        userMapper.userEdit(user);
+    }
+
+    /**
+     * 管理员对用户进行新增
+     *
+     * @param user
+     */
+    @Override
+    public void userAdd(User user) {
+        userMapper.userAdd(user);
+    }
+
+    /**
+     * 用户注册
+     *
+     * @param user
+     */
+    @Override
+    public void register(User user) {
+        userMapper.register(user);
+    }
+
 }

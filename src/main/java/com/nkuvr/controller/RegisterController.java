@@ -36,7 +36,7 @@ public class RegisterController {
     public Result doRegister(User user) {
         Result result = new Result();
         try {
-            // userService.userAdd(user);
+            userService.register(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();

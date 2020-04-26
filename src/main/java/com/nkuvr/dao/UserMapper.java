@@ -4,6 +4,7 @@ import com.nkuvr.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 /**
  * @Author: weizujie
  * @Date: 2020/4/25
@@ -33,6 +34,34 @@ public interface UserMapper {
      * @return
      */
     User login(User user);
-    
+
+    /**
+     * 根据 id 删除用户
+     *
+     * @param id
+     */
+    void deleteUserById(@Param("id") Long id);
+
+    /**
+     * 管理员对用户进行编辑
+     *
+     * @param user
+     */
+    void userEdit(User user);
+
+    /**
+     * 管理员对用户进行新增
+     *
+     * @param user
+     */
+    void userAdd(User user);
+
+    /**
+     * 用户注册
+     *
+     * @param user
+     */
+    void register(User user);
+
 
 }

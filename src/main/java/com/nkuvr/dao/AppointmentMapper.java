@@ -27,4 +27,11 @@ public interface AppointmentMapper {
      */
     List<Appointment> findAll();
 
+    /**
+     * 预约增加
+     *
+     * @param appointment
+     */
+    void appointmentAdd(Appointment appointment);
+
 }

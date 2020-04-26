@@ -11,7 +11,25 @@ import java.util.List;
  * @Github: https://github.com/weizujie
  */
 public interface IAppointmentService {
+    /**
+     * 根据 id 查询预约
+     *
+     * @param id
+     * @return
+     */
     List<Appointment> findAppointmentListByUserId(Long id);
 
+    /**
+     * 查询所有预约
+     *
+     * @return
+     */
     List<Appointment> findAll();
+
+    /**
+     * 预约增加
+     *
+     * @param appointment
+     */
+    void appointmentAdd(Appointment appointment);
 }

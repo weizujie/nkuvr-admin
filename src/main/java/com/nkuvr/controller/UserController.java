@@ -79,7 +79,7 @@ public class UserController {
     public Result doUserEdit(User user) {
         Result result = new Result();
         try {
-            //userService.userEdit(user);
+            userService.userEdit(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class UserController {
     public Result doUserDelete(@PathVariable Long id) {
         Result result = new Result();
         try {
-            //userService.deleteUserById(id);
+            userService.deleteUserById(id);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +130,7 @@ public class UserController {
     public Result doUserAdd(User user) {
         Result result = new Result();
         try {
-            //userService.userAdd(user);
+            userService.userAdd(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();

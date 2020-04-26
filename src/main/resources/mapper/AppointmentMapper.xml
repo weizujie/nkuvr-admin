@@ -29,6 +29,12 @@
             <result property="updateTime" column="update_time"/>
         </association>
     </resultMap>
+    <insert id="appointmentAdd">
+        insert into sys_appointment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            
+        </trim>
+    </insert>
 
 
     <select id="findAppointmentListByUserId" resultType="com.nkuvr.pojo.Appointment" resultMap="BaseResultMap">
