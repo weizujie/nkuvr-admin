@@ -163,7 +163,41 @@ public class UserController {
     public Result doUseProfileEdit(User user) {
         Result result = new Result();
         try {
-            //userService.userEdit(user);
+            userService.profileEdit(user);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+
+    /**
+     * 跳转到用户密码修改页面
+     *
+     * @return
+     */
+    @RequestMapping("/changePassword/{id}")
+    public String toUserChangePassword(@PathVariable("id") Long id, Model model) {
+        User dbUser = userService.findUserById(id);
+        model.addAttribute("userInfo", dbUser);
+        return "user/change_password";
+    }
+
+
+    /**
+     * 处理用户密码修改
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping("/doChangePassword")
+    @ResponseBody
+    public Result doChangePassword(User user) {
+        Result result = new Result();
+        try {
+            userService.changePassword(user);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();

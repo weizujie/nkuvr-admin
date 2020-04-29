@@ -31,4 +31,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
     public List<Appointment> findAll() {
         return appointmentMapper.findAll();
     }
+
+    @Override
+    public void appointmentAdd(Appointment appointment) {
+        appointmentMapper.appointmentAdd(appointment);
+    }
 }

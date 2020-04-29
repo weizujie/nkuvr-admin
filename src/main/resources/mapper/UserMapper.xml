@@ -52,6 +52,23 @@
         </trim>
     </update>
 
+    <!-- 用户个人信息修改 -->
+    <update id="profileEdit" parameterType="com.nkuvr.pojo.User">
+        update sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="studentNumber != null">student_number = #{studentNumber},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="gender != null">gender = #{gender},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 用户密码修改 -->
+    <update id="changePassword" parameterType="com.nkuvr.pojo.User">
+        update sys_user set password = #{password}
+        where id = #{id}
+    </update>
+
     <!-- 根据 id 删除用户 -->
     <delete id="deleteUserById">
         delete from sys_user where id = #{id}

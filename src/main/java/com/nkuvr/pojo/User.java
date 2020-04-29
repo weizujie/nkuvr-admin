@@ -23,6 +23,8 @@ public class User {
     private Integer gender;
     private Integer state;
     private Integer remark;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createTime = new Date();
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date updateTime = new Date();
 }

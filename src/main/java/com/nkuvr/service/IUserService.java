@@ -61,4 +61,18 @@ public interface IUserService {
      * @param user
      */
     void register(User user);
+
+    /**
+     * 用户个人信息修改
+     *
+     * @param user
+     */
+    void profileEdit(User user);
+
+    /**
+     * 用户密码修改
+     *
+     * @param user
+     */
+    void changePassword(User user);
 }

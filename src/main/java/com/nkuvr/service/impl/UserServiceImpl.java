@@ -94,4 +94,24 @@ public class UserServiceImpl implements IUserService {
         userMapper.register(user);
     }
 
+    /**
+     * 用户个人信息修改
+     *
+     * @param user
+     */
+    @Override
+    public void profileEdit(User user) {
+        userMapper.profileEdit(user);
+    }
+
+    /**
+     * 用户密码修改
+     *
+     * @param user
+     */
+    @Override
+    public void changePassword(User user) {
+        userMapper.changePassword(user);
+    }
+
 }
