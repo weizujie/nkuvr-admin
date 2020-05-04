@@ -4,6 +4,9 @@
 
 ------------------------------
 
+
+# 实验室预约管理系统
+
 ## 一、需求分析
 
 该系统的用户分为两种：管理员、学生
@@ -13,7 +16,7 @@
 ### 1、管理员功能需求描述
 
 - 登录
-- 密码修改
+- 密码重置
 - 用户管理
 - 预约管理
 - 实验室管理
@@ -22,10 +25,10 @@
 ### 2、学生功能需求描述
 
 - 登录
-- 密码修改
+- 密码重置
 - 查看个人信息
 - 查看实验室列表
-- 预约添加
+- 预约
 - 管理预约信息
 - 退出登录
 
@@ -57,7 +60,20 @@
 | lid                | int      | 实验室id                                                   |
 | date               | datetime | 预约时间                                                   |
 | state              | tinyint  | 预约状态<br>0：通过<br>1：不通过<br>2：审核中<br>3：已取消 |
-| appointment_number | int      | 容纳人数                                                   |
+| appointment_number | int      | 预约人数                                                   |
+| activity_name      | varchar  | 活动名称                                                   |
+| principal          | varchar  | 负责人                                                     |
+| contact            | varchar  | 负责人联系方式                                             |
+| speaker            | varchar  | 主讲人                                                     |
+| description        | varchar  | 活动描述                                                   |
+| device_demand      | varchar  | 设备需求                                                   |
+| consumer_demand    | varchar  | 消费需求                                                   |
+| other_demand       | varchar  | 其他需求                                                   |
+| staff              | varchar  | 工作人员                                                   |
+| staff_contact      | varchar  | 工作人员联系方式                                           |
+| teacher            | varchar  | 指导老师                                                   |
+| activity_time      | datetime | 活动时间                                                   |
+| set_time           | datetime | 布场时间                                                   |
 
 
 
@@ -68,6 +84,8 @@
 | id         | bigint  |              |
 | name       | varchar | 实验室教室号 |
 | galleryful | int     | 容纳人数     |
+
+
 
 
 ## 三、说明
@@ -83,7 +101,7 @@
     - Thymeleaf  2.2.6
     - Lombok     1.18.12
     - IntelliJ IDEA 2017
-        
+      
 
 ## 四、日志
 
@@ -113,4 +131,4 @@
 ## 五、联系
 
 - [Github@weizujie](https://github.com/weizujie)
-    
+  
