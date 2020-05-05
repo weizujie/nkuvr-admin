@@ -36,4 +36,21 @@ public class AppointmentServiceImpl implements IAppointmentService {
     public void appointmentAdd(Appointment appointment) {
         appointmentMapper.appointmentAdd(appointment);
     }
+
+    @Override
+    public Appointment findAppointmentByAppointmentId(Long id) {
+        return appointmentMapper.findAppointmentByAppointmentId(id);
+    }
+
+    @Override
+    public void appointmentCancelById(Long id) {
+        appointmentMapper.appointmentCancelById(id);
+    }
+
+    @Override
+    public void appointmentDeleteById(Long id) {
+        appointmentMapper.appointmentDeleteById(id);
+    }
+
+
 }

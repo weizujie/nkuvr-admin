@@ -1,5 +1,6 @@
 package com.nkuvr.dao;
 
+import com.nkuvr.pojo.Appointment;
 import com.nkuvr.pojo.User;
 import org.apache.ibatis.annotations.Param;
 

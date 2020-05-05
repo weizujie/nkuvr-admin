@@ -96,7 +96,7 @@
                                                 <font th:case="2" class="text-warning">审核中</font>
                                                 <font th:case="3" class="text-danger">已取消</font>
                                             </td>
-                                            <td th:text="${#dates.format(appointment.date, 'yyyy-MM-dd HH:mm')}"></td>
+                                            <td th:text="${#dates.format(appointment.activityTime, 'yyyy-MM-dd')}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default"
@@ -118,15 +118,16 @@
                                         [[${pageInfo.total}]] 条记录</p>
 
                                     <li th:class="${pageInfo.pageNum == 1 ? 'disabled' : ''}"><a
-                                            th:href="@{'/user/list?page=' + ${pageInfo.pageNum - 1}}"><span>«</span></a>
+                                            th:href="@{'/appointment/list?page=' + ${pageInfo.pageNum - 1}}"><span>«</span></a>
                                     </li>
 
                                     <li th:each="i: ${pageInfo.navigatepageNums}"
                                         th:class="${pageInfo.pageNum == i} ? 'active' : ''"><a
-                                            th:href="@{'/user/list?page=' + ${i}}"><span>[[ ${i} ]]</span></a></li>
+                                            th:href="@{'/appointment/list?page=' + ${i}}"><span>[[ ${i} ]]</span></a>
+                                    </li>
 
                                     <li th:class="${pageInfo.pageNum == pageInfo.pages ? 'disabled' : ''}"><a
-                                            th:href="@{'/user/list?page=' + ${pageInfo.pageNum + 1}}"><span>»</span></a>
+                                            th:href="@{'/appointment/list?page=' + ${pageInfo.pageNum + 1}}"><span>»</span></a>
                                     </li>
 
 
@@ -144,7 +145,6 @@
 
     </div>
 </div>
-
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../js/perfect-scrollbar.min.js"></script>
@@ -159,13 +159,26 @@
         });
     });
 </script>
-<script>
+<script th:inline="javascript">
+    var uid = [[${session.loginUser.id}]];
+    var username = [[${session.loginUser.realName}]]
+    if (username === null) {
+        layer.open({
+            content: '检测到你没有设置姓名与学号，点击确定去设置!',
+            btn: ['确定'],
+            yes: function () {
+                window.location.href = "/user/profile/" + uid;
+            }
+        });
+    }
+
     function doCancel(id) {
+        var uid = [[${session.loginUser.id}]];
         var loadingIndex = null;
-        layer.confirm("确认删除该用户吗？", {btn: ['确认', '取消']}, function () {
+        layer.confirm("确认取消该预约吗？", {btn: ['确认', '取消']}, function () {
             $.ajax({
                 type: "post",
-                url: "/user/delete/" + id,
+                url: "/appointment/cancel/" + id,
                 data: {
                     "id": id
                 },
@@ -175,11 +188,9 @@
                 success: function (result) {
                     layer.close(loadingIndex);
                     if (result.success) {
-                        // 删除成功
                         layer.msg("取消成功", {time: 1000, icon: 6});
-                        window.location.href = "/appointment/list";
+                        window.location.href = "/appointment/myAppointment/" + uid;
                     } else {
-                        // 删除失败
                         layer.msg("取消失败，请重新操作", {time: 1000, icon: 5, shift: 6});
                     }
                 }

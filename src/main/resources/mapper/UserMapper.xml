@@ -26,7 +26,7 @@
     </update>
 
     <!-- 管理员对用户进行新增 -->
-    <update id="userAdd">
+    <insert id="userAdd">
         insert into sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="username != null">username,</if>
@@ -50,7 +50,7 @@
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime}</if>
         </trim>
-    </update>
+    </insert>
 
     <!-- 用户个人信息修改 -->
     <update id="profileEdit" parameterType="com.nkuvr.pojo.User">

@@ -34,4 +34,23 @@ public interface AppointmentMapper {
      */
     void appointmentAdd(Appointment appointment);
 
+    /**
+     * 根据 id 查询预约
+     *
+     * @param id
+     * @return
+     */
+    Appointment findAppointmentByAppointmentId(@Param("id") Long id);
+
+    /**
+     * 用户取消预约
+     */
+    void appointmentCancelById(@Param("id") Long id);
+
+    /**
+     * 删除预约
+     *
+     * @param id
+     */
+    void appointmentDeleteById(Long id);
 }

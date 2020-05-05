@@ -71,11 +71,10 @@
                                                 </label>
                                             </th>
                                             <th>用户名</th>
-                                            <th>学号</th>
-                                            <th>姓名</th>
-                                            <th>教室号</th>
+                                            <th>活动名称</th>
+                                            <th>负责人</th>
+                                            <th>拟用区域</th>
                                             <th>预约人数</th>
-                                            <th>容纳人数</th>
                                             <th>状态</th>
                                             <th>预约时间</th>
                                             <th>操作</th>
@@ -89,25 +88,24 @@
                                                 </label>
                                             </td>
                                             <td th:text="${appointment.getUser().username}"></td>
-                                            <td th:text="${appointment.getUser().studentNumber}"></td>
-                                            <td th:text="${appointment.getUser().realName}"></td>
+                                            <td th:text="${appointment.activityName}"></td>
+                                            <td th:text="${appointment.principal}"></td>
                                             <td th:text="${appointment.getLab().name}"></td>
                                             <td th:text="${appointment.appointmentNumber}"></td>
-                                            <td th:text="${appointment.getLab().galleryful}"></td>
                                             <td th:switch="${appointment.state}">
                                                 <font th:case="0" class="text-success">通过</font>
                                                 <font th:case="1" class="text-danger">不通过</font>
                                                 <font th:case="2" class="text-warning">审核中</font>
                                                 <font th:case="3" class="text-danger">已取消</font>
                                             </td>
-                                            <td th:text="${#dates.format(appointment.date, 'yyyy-MM-dd HH:mm')}"></td>
+                                            <td th:text="${#dates.format(appointment.date, 'yyyy-MM-dd')}"></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default"
-                                                       th:href="@{'/appointment/edit/' + ${appointment.id}}"
-                                                       data-toggle="tooltip"><i class="mdi mdi-pencil"></i>修改</a>
+                                                       th:href="@{'/appointment/appointmentDetail/' + ${appointment.id}}"
+                                                       data-toggle="tooltip"><i class="mdi mdi-pencil"></i>查看</a>
                                                     <a class="btn btn-xs btn-default"
-                                                       th:href="'javascript:doCancel('+ ${appointment.id} +')'"
+                                                       th:href="'javascript:doDelete('+ ${appointment.id} +')'"
                                                        data-toggle="tooltip"><i
                                                             class="mdi mdi-window-close"></i>删除</a>
                                                 </div>
@@ -122,15 +120,16 @@
                                         [[${pageInfo.total}]] 条记录</p>
 
                                     <li th:class="${pageInfo.pageNum == 1 ? 'disabled' : ''}"><a
-                                            th:href="@{'/user/list?page=' + ${pageInfo.pageNum - 1}}"><span>«</span></a>
+                                            th:href="@{'/appointment/list?page=' + ${pageInfo.pageNum - 1}}"><span>«</span></a>
                                     </li>
 
                                     <li th:each="i: ${pageInfo.navigatepageNums}"
                                         th:class="${pageInfo.pageNum == i} ? 'active' : ''"><a
-                                            th:href="@{'/user/list?page=' + ${i}}"><span>[[ ${i} ]]</span></a></li>
+                                            th:href="@{'/appointment/list?page=' + ${i}}"><span>[[ ${i} ]]</span></a>
+                                    </li>
 
                                     <li th:class="${pageInfo.pageNum == pageInfo.pages ? 'disabled' : ''}"><a
-                                            th:href="@{'/user/list?page=' + ${pageInfo.pageNum + 1}}"><span>»</span></a>
+                                            th:href="@{'/appointment/list?page=' + ${pageInfo.pageNum + 1}}"><span>»</span></a>
                                     </li>
 
 
@@ -164,12 +163,12 @@
     });
 </script>
 <script>
-    function doCancel(id) {
+    function doDelete(id) {
         var loadingIndex = null;
-        layer.confirm("确认删除该用户吗？", {btn: ['确认', '取消']}, function () {
+        layer.confirm("确认删除该预约吗？", {btn: ['确认', '取消']}, function () {
             $.ajax({
                 type: "post",
-                url: "/user/delete/" + id,
+                url: "/appointment/delete/" + id,
                 data: {
                     "id": id
                 },
@@ -179,12 +178,10 @@
                 success: function (result) {
                     layer.close(loadingIndex);
                     if (result.success) {
-                        // 删除成功
-                        layer.msg("取消成功", {time: 1000, icon: 6});
+                        layer.msg("删除成功", {time: 1000, icon: 6});
                         window.location.href = "/appointment/list";
                     } else {
-                        // 删除失败
-                        layer.msg("取消失败，请重新操作", {time: 1000, icon: 5, shift: 6});
+                        layer.msg("删除失败，请重新操作", {time: 1000, icon: 5, shift: 6});
                     }
                 }
             });

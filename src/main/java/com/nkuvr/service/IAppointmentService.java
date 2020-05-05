@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface IAppointmentService {
     /**
-     * 根据 id 查询预约
+     * 根据 id 查询预约列表
      *
      * @param id
      * @return
@@ -32,4 +32,24 @@ public interface IAppointmentService {
      * @param appointment
      */
     void appointmentAdd(Appointment appointment);
+
+    /**
+     * 根据 id 查询预约
+     *
+     * @param id
+     * @return
+     */
+    Appointment findAppointmentByAppointmentId(Long id);
+
+    /**
+     * 用户取消预约
+     */
+    void appointmentCancelById(Long id);
+
+    /**
+     * 删除预约
+     *
+     * @param id
+     */
+    void appointmentDeleteById(Long id);
 }

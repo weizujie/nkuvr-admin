@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class AppointmentController {
      *
      * @return
      */
-    @RequestMapping("/list/{id}")
+    @RequestMapping("/myAppointment/{id}")
     public String toMyAppointmentList(@PathVariable("id") Long id,
                                       @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
                                       Model model) {
@@ -77,10 +78,63 @@ public class AppointmentController {
      * @return
      */
     @RequestMapping("/doAppointmentAdd")
+    @ResponseBody
     public Result doAppointmentAdd(Appointment appointment) {
         Result result = new Result();
         try {
             appointmentService.appointmentAdd(appointment);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 跳转到 查看预约细节页面
+     *
+     * @return
+     */
+    @RequestMapping("/appointmentDetail/{id}")
+    public String toAppointmentDetail(@PathVariable("id") Long id, Model model) {
+        Appointment appointment = appointmentService.findAppointmentByAppointmentId(id);
+        model.addAttribute("appointment", appointment);
+        return "appointment/detail";
+    }
+
+    /**
+     * 处理取消预约
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/cancel/{id}")
+    @ResponseBody
+    public Result doCancel(@PathVariable("id") Long id) {
+        Result result = new Result();
+        try {
+            appointmentService.appointmentCancelById(id);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 处理删除预约
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public Result doDelete(@PathVariable("id") Long id) {
+        Result result = new Result();
+        try {
+            appointmentService.appointmentDeleteById(id);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();
