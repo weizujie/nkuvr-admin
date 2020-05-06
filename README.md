@@ -39,7 +39,6 @@
 | 字段名         | 类型     | 注释                           |
 | -------------- | -------- | ------------------------------ |
 | id             | bigint   |                                |
-| username       | varchar  | 用户名                         |
 | password       | varchar  | 密码                           |
 | student_number | int      | 学号                           |
 | real_name      | varchar  | 真实姓名                       |
