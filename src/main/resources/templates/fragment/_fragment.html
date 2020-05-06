@@ -61,7 +61,7 @@
                 <li class="dropdown dropdown-profile">
                     <a href="javascript:void(0)" data-toggle="dropdown">
                         <img class="img-avatar img-avatar-48 m-r-10" src="../../images/users/avatar.jpg" alt="Admin"/>
-                        <span th:text="${session.loginUser.username}"> <span class="caret"></span></span>
+                        <span th:text="${session.loginUser.studentNumber}"> <span class="caret"></span></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a th:href="@{'/user/profile/' + ${session.loginUser.id}}"><i class="mdi mdi-account"></i>

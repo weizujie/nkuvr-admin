@@ -67,7 +67,8 @@
 
 
                 <div class="form-group has-feedback feedback-left">
-                    <input type="text" placeholder="请输入用户名（必填）" class="form-control" name="username" id="username"/>
+                    <input type="text" placeholder="请输入学号（必填）" class="form-control" name="studentNumber"
+                           id="studentNumber"/>
                     <span class="mdi mdi-account form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="form-group has-feedback feedback-left">
@@ -97,7 +98,7 @@
 <script src="layer/layer.js"></script>
 <script type="text/javascript">
     function doRegister() {
-        var username = $("#username").val();
+        var studentNumber = $("#studentNumber").val();
         var password = $("#password").val();
         var state = $("#state").val();
         var remark = $("#remark").val();
@@ -105,8 +106,12 @@
 
         var checkPassword = $("#checkPassword").val();
         var loadingIndex = null;
-        if (username === "") {
-            layer.msg("用户名不能为空，请输入!", {time: 1000, icon: 5, shift: 6});
+        if (studentNumber === "") {
+            layer.msg("学号不能为空，请输入!", {time: 1000, icon: 5, shift: 6});
+            return;
+        }
+        if (!studentNumber.match(/\d{8}$/)) {
+            layer.msg("请输入正确的学号!", {time: 1000, icon: 5, shift: 6});
             return;
         }
         if (password === "") {
@@ -123,7 +128,7 @@
             async: false,
             dataType: "json",
             data: {
-                "username": username,
+                "studentNumber": studentNumber,
                 "password": password,
                 "state": state,
                 "remark": remark
@@ -137,7 +142,7 @@
                     layer.msg("注册成功", {time: 1000, icon: 6})
                     window.location.href = "/login";
                 } else {
-                    layer.msg("注册失败，请重新操作", {time: 1000, icon: 5, shift: 6});
+                    layer.msg("该学号已被注册，请重新输入！", {time: 1000, icon: 5, shift: 6});
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.nkuvr.service;
 
 import com.nkuvr.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -75,4 +76,11 @@ public interface IUserService {
      * @param user
      */
     void changePassword(User user);
+
+    /**
+     * 根据学号查询用户
+     */
+    User findUserByStudentNumber(String studentNumber);
+
 }
+

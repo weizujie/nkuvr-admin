@@ -78,5 +78,10 @@ public interface UserMapper {
      */
     void changePassword(User user);
 
+    /**
+     * 根据学号查询用户
+     *
+     */
+    User findUserByStudentNumber(@Param("studentNumber") String studentNumber);
 
 }

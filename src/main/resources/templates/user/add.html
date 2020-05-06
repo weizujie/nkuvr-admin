@@ -32,8 +32,9 @@
                             <div class="card-body">
                                 <form action="#!" method="post" class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="username">用户名</label>
-                                        <input type="text" class="form-control" id="username" name="username"/>
+                                        <label for="studentNumber">学号</label>
+                                        <input type="text" class="form-control" id="studentNumber"
+                                               name="studentNumber"/>
                                     </div>
 
                                     <div class="form-group col-md-12">
@@ -41,11 +42,6 @@
                                         <input type="password" class="form-control" id="password" name="password"/>
                                     </div>
 
-                                    <div class="form-group col-md-12">
-                                        <label for="studentNumber">学号</label>
-                                        <input type="text" class="form-control" id="studentNumber"
-                                               name="studentNumber"/>
-                                    </div>
 
                                     <div class="form-group col-md-12">
                                         <label for="realName">姓名</label>
@@ -113,7 +109,6 @@
 <script src="../../layer/layer.js"></script>
 <script type="text/javascript">
     function doAdd() {
-        var username = $('#username').val();
         var password = $('#password').val();
         var studentNumber = $('#studentNumber').val();
         var realName = $('#realName').val();
@@ -123,8 +118,8 @@
         var remark = $('#remark').val();
         var loadingIndex = null;
 
-        if (username === "") {
-            layer.msg("用户名不能为空，请输入!", {time: 1000, icon: 5, shift: 6});
+        if (studentNumber === "") {
+            layer.msg("学号不能为空，请输入!", {time: 1000, icon: 5, shift: 6});
             return;
         }
 
@@ -145,7 +140,6 @@
                 async: false,
                 dataType: "json",
                 data: {
-                    "username": username,
                     "password": password,
                     "studentNumber": studentNumber,
                     "realName": realName,

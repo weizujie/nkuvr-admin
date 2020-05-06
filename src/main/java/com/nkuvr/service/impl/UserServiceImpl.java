@@ -114,4 +114,16 @@ public class UserServiceImpl implements IUserService {
         userMapper.changePassword(user);
     }
 
+    /**
+     * 根据学号查询用户
+     *
+     * @param studentNumber
+     * @return
+     */
+    @Override
+    public User findUserByStudentNumber(String studentNumber) {
+        return userMapper.findUserByStudentNumber(studentNumber);
+    }
+
+
 }

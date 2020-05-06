@@ -161,10 +161,10 @@
 </script>
 <script th:inline="javascript">
     var uid = [[${session.loginUser.id}]];
-    var username = [[${session.loginUser.realName}]]
-    if (username === null) {
+    var realName = [[${session.loginUser.realName}]]
+    if (realName === null) {
         layer.open({
-            content: '检测到你没有设置姓名与学号，点击确定去设置!',
+            content: '检测到你没有设置姓名，点击确定去设置!',
             btn: ['确定'],
             yes: function () {
                 window.location.href = "/user/profile/" + uid;

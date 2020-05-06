@@ -45,7 +45,7 @@
                                                        data-field="title">学号</a>
                                                 </li>
                                                 <li><a tabindex="-1" href="javascript:void(0)"
-                                                       data-field="cat_name">用户名</a></li>
+                                                       data-field="cat_name">姓名</a></li>
                                             </ul>
                                         </div>
                                         <input type="text" class="form-control" value="" name="keyword"
@@ -70,7 +70,7 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            <th>用户名</th>
+                                            <th>学号</th>
                                             <th>活动名称</th>
                                             <th>负责人</th>
                                             <th>拟用区域</th>
@@ -87,7 +87,7 @@
                                                     <input type="checkbox" name="ids[]" value="1"><span></span>
                                                 </label>
                                             </td>
-                                            <td th:text="${appointment.getUser().username}"></td>
+                                            <td th:text="${appointment.getUser().studentNumber}"></td>
                                             <td th:text="${appointment.activityName}"></td>
                                             <td th:text="${appointment.principal}"></td>
                                             <td th:text="${appointment.getLab().name}"></td>
