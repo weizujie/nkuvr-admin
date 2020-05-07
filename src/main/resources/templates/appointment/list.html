@@ -164,6 +164,7 @@
 </script>
 <script>
     function doDelete(id) {
+        var currentUrl = window.location.href;
         var loadingIndex = null;
         layer.confirm("确认删除该预约吗？", {btn: ['确认', '取消']}, function () {
             $.ajax({
@@ -179,7 +180,7 @@
                     layer.close(loadingIndex);
                     if (result.success) {
                         layer.msg("删除成功", {time: 1000, icon: 6});
-                        window.location.href = "/appointment/list";
+                        window.location.href = currentUrl;
                     } else {
                         layer.msg("删除失败，请重新操作", {time: 1000, icon: 5, shift: 6});
                     }

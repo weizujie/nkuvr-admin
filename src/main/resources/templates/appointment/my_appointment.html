@@ -161,7 +161,7 @@
 </script>
 <script th:inline="javascript">
     var uid = [[${session.loginUser.id}]];
-    var realName = [[${session.loginUser.realName}]]
+    var realName = [[${session.loginUser.realName}]];
     if (realName === null) {
         layer.open({
             content: '检测到你没有设置姓名，点击确定去设置!',

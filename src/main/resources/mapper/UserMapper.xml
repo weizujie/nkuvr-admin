@@ -6,8 +6,8 @@
 
     <!-- 用户注册 -->
     <insert id="register">
-        insert into sys_user (student_number, password, state, remark)
-        values (#{studentNumber}, #{password}, #{state}, #{remark})
+        insert into sys_user (student_number, password, state, remark, create_time, update_time)
+        values (#{studentNumber}, #{password}, #{state}, #{remark}, #{createTime}, #{updateTime})
     </insert>
 
     <!-- 管理员对用户进行编辑 -->
