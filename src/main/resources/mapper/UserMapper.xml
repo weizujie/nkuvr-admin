@@ -6,8 +6,8 @@
 
     <!-- 用户注册 -->
     <insert id="register">
-        insert into sys_user (student_number, password, state, remark, create_time, update_time)
-        values (#{studentNumber}, #{password}, #{state}, #{remark}, #{createTime}, #{updateTime})
+        insert into sys_user (student_number, real_name, password, state, remark)
+        values (#{studentNumber}, #{realName}, #{password}, #{state}, #{remark})
     </insert>
 
     <!-- 管理员对用户进行编辑 -->
@@ -33,9 +33,8 @@
             <if test="realName != null">real_name,</if>
             <if test="gender != null">gender,</if>
             <if test="state != null">state,</if>
-            <if test="remark != null">remark,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateTime != null">update_time</if>
+            <if test="remark != null">remark</if>
+
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="password != null">#{password},</if>
@@ -44,8 +43,7 @@
             <if test="gender != null">#{gender},</if>
             <if test="state != null">#{state},</if>
             <if test="remark != null">#{remark}</if>
-            <if test="createTime != null">#{createTime},</if>
-            <if test="updateTime != null">#{updateTime}</if>
+
         </trim>
     </insert>
 

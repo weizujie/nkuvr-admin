@@ -15,7 +15,7 @@ import java.util.Date;
 @Data
 public class User {
 
-    private String id;
+    private Long id;
     private String password;
     private String studentNumber;
     private String realName;

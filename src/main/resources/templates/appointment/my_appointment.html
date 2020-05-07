@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>我的 - Nkuvr 后台管理系统</title>
+    <title>我的预约 - Nkuvr 后台管理系统</title>
     <meta name="author" content="yinqi">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/materialdesignicons.min.css" rel="stylesheet">
@@ -160,18 +160,6 @@
     });
 </script>
 <script th:inline="javascript">
-    var uid = [[${session.loginUser.id}]];
-    var realName = [[${session.loginUser.realName}]];
-    if (realName === null) {
-        layer.open({
-            content: '检测到你没有设置姓名，点击确定去设置!',
-            btn: ['确定'],
-            yes: function () {
-                window.location.href = "/user/profile/" + uid;
-            }
-        });
-    }
-
     function doCancel(id) {
         var uid = [[${session.loginUser.id}]];
         var loadingIndex = null;

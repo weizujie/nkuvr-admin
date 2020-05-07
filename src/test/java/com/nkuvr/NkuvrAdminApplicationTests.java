@@ -1,5 +1,7 @@
 package com.nkuvr;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.nkuvr.pojo.Appointment;
 import com.nkuvr.pojo.User;
 import com.nkuvr.service.IAppointmentService;
@@ -34,5 +36,4 @@ class NkuvrAdminApplicationTests {
             System.out.println("giao!!!!");
         }
     }
-
 }
