@@ -2,7 +2,7 @@ package com.nkuvr.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.nkuvr.pojo.Result;
+import com.nkuvr.utils.ResultUtil;
 import com.nkuvr.pojo.User;
 import com.nkuvr.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,7 +35,7 @@ public class UserController {
      */
     @RequestMapping("/index")
     public String toUserIndex() {
-        return "user/index";
+        return "user/userIndex";
     }
 
     /**
@@ -54,7 +51,7 @@ public class UserController {
         List<User> userList = userService.findAll();
         PageInfo<User> pageInfo = new PageInfo<>(userList, 5);
         model.addAttribute("pageInfo", pageInfo);
-        return "user/list";
+        return "user/userList";
     }
 
     /**
@@ -68,7 +65,7 @@ public class UserController {
     public String toUserEdit(@PathVariable Long id, Model model) {
         User dbUser = userService.findUserById(id);
         model.addAttribute("userInfo", dbUser);
-        return "user/edit";
+        return "user/userEdit";
     }
 
     /**
@@ -79,8 +76,8 @@ public class UserController {
      */
     @RequestMapping("/doEdit")
     @ResponseBody
-    public Result doUserEdit(User user) {
-        Result result = new Result();
+    public ResultUtil doUserEdit(User user) {
+        ResultUtil result = new ResultUtil();
         try {
             userService.userEdit(user);
             result.setSuccess(true);
@@ -99,8 +96,8 @@ public class UserController {
      */
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public Result doUserDelete(@PathVariable Long id) {
-        Result result = new Result();
+    public ResultUtil doUserDelete(@PathVariable Long id) {
+        ResultUtil result = new ResultUtil();
         try {
             userService.deleteUserById(id);
             result.setSuccess(true);
@@ -119,7 +116,7 @@ public class UserController {
      */
     @RequestMapping("/add")
     public String toUserAdd() {
-        return "user/add";
+        return "user/userAdd";
     }
 
     /**
@@ -130,8 +127,8 @@ public class UserController {
      */
     @RequestMapping("/doAdd")
     @ResponseBody
-    public Result doUserAdd(User user) {
-        Result result = new Result();
+    public ResultUtil doUserAdd(User user) {
+        ResultUtil result = new ResultUtil();
         try {
             userService.userAdd(user);
             result.setSuccess(true);
@@ -152,7 +149,7 @@ public class UserController {
     public String toProfile(@PathVariable Long id, Model model) {
         User dbUser = userService.findUserById(id);
         model.addAttribute("userInfo", dbUser);
-        return "user/profile";
+        return "user/userProfile";
     }
 
     /**
@@ -163,8 +160,8 @@ public class UserController {
      */
     @RequestMapping("/doProfileEdit")
     @ResponseBody
-    public Result doUseProfileEdit(User user) {
-        Result result = new Result();
+    public ResultUtil doUseProfileEdit(User user) {
+        ResultUtil result = new ResultUtil();
         try {
             userService.profileEdit(user);
             result.setSuccess(true);
@@ -185,7 +182,7 @@ public class UserController {
     public String toUserChangePassword(@PathVariable("id") Long id, Model model) {
         User dbUser = userService.findUserById(id);
         model.addAttribute("userInfo", dbUser);
-        return "user/change_password";
+        return "user/changePassword";
     }
 
 
@@ -197,8 +194,8 @@ public class UserController {
      */
     @RequestMapping("/doChangePassword")
     @ResponseBody
-    public Result doChangePassword(User user) {
-        Result result = new Result();
+    public ResultUtil doChangePassword(User user) {
+        ResultUtil result = new ResultUtil();
         try {
             userService.changePassword(user);
             result.setSuccess(true);

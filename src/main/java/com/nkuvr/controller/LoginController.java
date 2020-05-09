@@ -1,6 +1,6 @@
 package com.nkuvr.controller;
 
-import com.nkuvr.pojo.Result;
+import com.nkuvr.utils.ResultUtil;
 import com.nkuvr.pojo.User;
 import com.nkuvr.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,8 @@ public class LoginController {
      */
     @RequestMapping("/doLogin")
     @ResponseBody
-    public Result doLogin(User user, HttpSession session) {
-        Result result = new Result();
+    public ResultUtil doLogin(User user, HttpSession session) {
+        ResultUtil result = new ResultUtil();
         User dbUser = userService.login(user);
         if (dbUser != null) {
             // 登录成功

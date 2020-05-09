@@ -52,5 +52,24 @@ public interface AppointmentMapper {
      *
      * @param id
      */
-    void appointmentDeleteById(Long id);
+    void appointmentDeleteById(@Param("id") Long id);
+
+    /**
+     * 通过预约
+     *
+     * @param id
+     */
+    void appointmentPassById(@Param("id") Long id);
+
+    /**
+     * 不通过预约
+     *
+     * @param id
+     */
+    void appointmentNoPassById(@Param("id") Long id, @Param("reason") String reason);
+
+    /**
+     * 预约修改
+     */
+    void appointmentEdit(Appointment appointment);
 }

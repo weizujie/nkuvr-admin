@@ -5,6 +5,7 @@ spring:
     url: jdbc:mysql://localhost:3306/nkuvr_admin?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: toor
+
     # 连接池配置
     type: com.alibaba.druid.pool.DruidDataSource
     initiaSize: 1
@@ -34,6 +35,7 @@ spring:
   # thymeleaf 模板配置
   thymeleaf:
     cache: false
+    mode: HTML
 
 # 端口配置
 server:

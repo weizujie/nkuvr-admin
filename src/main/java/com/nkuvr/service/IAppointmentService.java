@@ -52,4 +52,24 @@ public interface IAppointmentService {
      * @param id
      */
     void appointmentDeleteById(Long id);
+
+    /**
+     * 通过预约
+     *
+     * @param id
+     */
+    void appointmentPassById(Long id);
+
+    /**
+     * 不通过预约
+     *
+     * @param id
+     */
+    void appointmentNoPassById(Long id, String reason);
+
+
+    /**
+     * 预约修改
+     */
+    void appointmentEdit(Appointment appointment);
 }

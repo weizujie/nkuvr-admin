@@ -316,7 +316,7 @@
                             layer.close(loadingIndex);
                             if (result.success) {
                                 layer.msg("预约成功", {time: 1000, icon: 6});
-                                window.location.href = "/appointment/myAppointment/" + uid;
+                                window.location.href = "/appointment/my/" + uid;
                             } else {
                                 layer.msg("预约失败，请重新操作", {time: 1000, icon: 5, shift: 6});
                             }

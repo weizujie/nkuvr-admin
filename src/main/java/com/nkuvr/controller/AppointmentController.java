@@ -3,16 +3,15 @@ package com.nkuvr.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkuvr.pojo.Appointment;
-import com.nkuvr.pojo.Result;
+import com.nkuvr.utils.ResultUtil;
 import com.nkuvr.service.IAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -34,7 +33,7 @@ public class AppointmentController {
      *
      * @return
      */
-    @RequestMapping("/myAppointment/{id}")
+    @RequestMapping("/my/{id}")
     public String toMyAppointmentList(@PathVariable("id") Long id,
                                       @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
                                       Model model) {
@@ -42,7 +41,7 @@ public class AppointmentController {
         List<Appointment> appointmentList = appointmentService.findAppointmentListByUserId(id);
         PageInfo<Appointment> pageInfo = new PageInfo<>(appointmentList, 5);
         model.addAttribute("pageInfo", pageInfo);
-        return "appointment/my_appointment";
+        return "appointment/myAppointment";
     }
 
     /**
@@ -58,7 +57,7 @@ public class AppointmentController {
         List<Appointment> appointmentList = appointmentService.findAll();
         PageInfo<Appointment> pageInfo = new PageInfo<>(appointmentList, 5);
         model.addAttribute("pageInfo", pageInfo);
-        return "appointment/list";
+        return "appointment/appointmentList";
     }
 
     /**
@@ -68,7 +67,7 @@ public class AppointmentController {
      */
     @RequestMapping("/add")
     public String toAppointmentAdd() {
-        return "appointment/add";
+        return "appointment/addAppointment";
     }
 
     /**
@@ -79,8 +78,8 @@ public class AppointmentController {
      */
     @RequestMapping("/doAppointmentAdd")
     @ResponseBody
-    public Result doAppointmentAdd(Appointment appointment) {
-        Result result = new Result();
+    public ResultUtil doAppointmentAdd(Appointment appointment) {
+        ResultUtil result = new ResultUtil();
         try {
             appointmentService.appointmentAdd(appointment);
             result.setSuccess(true);
@@ -96,11 +95,11 @@ public class AppointmentController {
      *
      * @return
      */
-    @RequestMapping("/appointmentDetail/{id}")
+    @RequestMapping("/view/{id}")
     public String toAppointmentDetail(@PathVariable("id") Long id, Model model) {
         Appointment appointment = appointmentService.findAppointmentByAppointmentId(id);
         model.addAttribute("appointment", appointment);
-        return "appointment/detail";
+        return "appointment/viewAppointment";
     }
 
     /**
@@ -111,8 +110,8 @@ public class AppointmentController {
      */
     @RequestMapping("/cancel/{id}")
     @ResponseBody
-    public Result doCancel(@PathVariable("id") Long id) {
-        Result result = new Result();
+    public ResultUtil doCancel(@PathVariable("id") Long id) {
+        ResultUtil result = new ResultUtil();
         try {
             appointmentService.appointmentCancelById(id);
             result.setSuccess(true);
@@ -131,10 +130,87 @@ public class AppointmentController {
      */
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public Result doDelete(@PathVariable("id") Long id) {
-        Result result = new Result();
+    public ResultUtil doDelete(@PathVariable("id") Long id) {
+        ResultUtil result = new ResultUtil();
         try {
             appointmentService.appointmentDeleteById(id);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 处理 通过预约
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/pass/{id}")
+    @ResponseBody
+    public ResultUtil doAppointmentPass(@PathVariable("id") Long id) {
+        ResultUtil result = new ResultUtil();
+        try {
+            appointmentService.appointmentPassById(id);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+    /**
+     * 处理 不通过预约
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/nopass/{id}", consumes = "application/json")
+    @ResponseBody
+    public ResultUtil doAppointmentNoPass(@PathVariable("id") Long id, @RequestBody String reason) throws UnsupportedEncodingException {
+        ResultUtil result = new ResultUtil();
+        String[] str = reason.split("&");
+        String str1 = URLDecoder.decode(str[str.length - 1], "UTF-8");
+        String[] str2 = str1.split("=");
+        try {
+            appointmentService.appointmentNoPassById(id, str2[str2.length - 1]);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+        }
+        return result;
+    }
+
+
+    /**
+     * 跳转到预约修改页面
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("/edit/{id}")
+    public String toAppointmentEdit(@PathVariable("id") Long id, Model model) {
+        Appointment appointmentByAppointmentId = appointmentService.findAppointmentByAppointmentId(id);
+        model.addAttribute("appointment", appointmentByAppointmentId);
+        return "appointment/editAppointment";
+    }
+
+    /**
+     * 处理 预约修改
+     *
+     * @return
+     */
+    @RequestMapping("/doAppointmentEdit")
+    @ResponseBody
+    public ResultUtil doAppointmentEdit(Appointment appointment) {
+        ResultUtil result = new ResultUtil();
+        try {
+            appointmentService.appointmentEdit(appointment);
             result.setSuccess(true);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.nkuvr.controller;
 
-import com.nkuvr.pojo.Result;
+import com.nkuvr.utils.ResultUtil;
 import com.nkuvr.pojo.User;
 import com.nkuvr.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +40,8 @@ public class RegisterController {
      */
     @RequestMapping("/doRegister")
     @ResponseBody
-    public Result doRegister(User user, @RequestParam("studentNumber") String studentNumber) {
-        Result result = new Result();
+    public ResultUtil doRegister(User user, @RequestParam("studentNumber") String studentNumber) {
+        ResultUtil result = new ResultUtil();
         try {
             // 判断用户是否存在
             User userByStudentNumber = userService.findUserByStudentNumber(studentNumber);

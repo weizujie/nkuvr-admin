@@ -49,14 +49,18 @@
 
                                 <tr>
                                     <td width="18%" height="26">活动时间</td>
-                                    <td width="22%" height="26"><span th:text="${#dates.format(appointment.activityTime, 'yyyy-MM-dd')}"></span></td>
+                                    <td width="22%" height="26"><span
+                                            th:text="${#dates.format(appointment.activityTime, 'yyyy-MM-dd')}"></span>
+                                    </td>
                                     <td width="13%" height="26">布场时间</td>
-                                    <td colspan="3" height="26"><span th:text="${#dates.format(appointment.setTime, 'yyyy-MM-dd')}"></span></td>
+                                    <td colspan="3" height="26"><span
+                                            th:text="${#dates.format(appointment.setTime, 'yyyy-MM-dd')}"></span></td>
                                 </tr>
 
                                 <tr>
                                     <td width="18%" height="26">拟用区域</td>
-                                    <td colspan="5" height="40"><span th:text="${appointment.getLab().getName()}"></span></td>
+                                    <td colspan="5" height="40"><span
+                                            th:text="${appointment.getLab().getName()}"></span></td>
                                 </tr>
 
                                 <tr>
@@ -103,8 +107,13 @@
                             </table>
                         </div>
                     </table>
-
-                    <a href="#" type="submit">提交</a>
+                    <br><br>
+                    <div class="form-group col-md-12" style="text-align:center">
+                        <a class="btn btn-primary ajax-post" target-form="add-form"
+                           th:href="'javascript:appointmentPass('+ ${appointment.id} +')'">通过</a>
+                        <a class="btn btn-danger ajax-post" target-form="add-form"
+                           th:href="'javascript:appointmentNoPass('+ ${appointment.id} +')'">不通过，填写理由</a>
+                    </div>
                 </div>
 
             </div>
@@ -120,5 +129,67 @@
 <script type="text/javascript" src="../../js/main.min.js"></script>
 <!--日期选择插件-->
 <script src="../../layer/layer.js"></script>
+<script>
+    function appointmentPass(id) {
+        var loadingIndex = null;
+        layer.confirm("确认通过该预约吗？", {btn: ['确认', '取消']}, function () {
+            $.ajax({
+                type: "post",
+                url: "/appointment/pass/" + id,
+                data: {
+                    "id": id
+                },
+                beforeSend: function () {
+                    loadingIndex = layer.msg("处理中", {icon: 16});
+                },
+                success: function (result) {
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        layer.msg("处理成功", {time: 1000, icon: 6});
+                        window.location.href = "/appointment/list";
+                    } else {
+                        layer.msg("处理失败，请重新操作", {time: 1000, icon: 5, shift: 6});
+                    }
+                }
+            });
+        });
+        return false;
+    }
+</script>
+<script>
+    function appointmentNoPass(id) {
+        var loadingIndex = null;
+        layer.prompt({
+            formType: 2,
+            value: '初始值',
+            title: '请填写理由',
+            area: ['800px', '350px']
+        }, function (reason, index) {
+            $.ajax({
+                type: "post",
+                url: "/appointment/nopass/" + id,
+                contentType: "application/json;charset=UTF-8",
+                data: {
+                    "id": id,
+                    "reason": reason
+                },
+                beforeSend: function () {
+                    loadingIndex = layer.msg("处理中", {icon: 16});
+                },
+                success: function (result) {
+                    layer.close(loadingIndex);
+                    if (result.success) {
+                        layer.msg("处理成功", {time: 1000, icon: 6});
+                        window.location.href = "/appointment/list";
+                    } else {
+                        layer.msg("处理失败，请重新操作", {time: 1000, icon: 5, shift: 6});
+                    }
+                }
+            });
+            layer.close(index);
+        });
+        return false;
+    }
+</script>
 </body>
 </html>

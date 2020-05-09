@@ -24,6 +24,7 @@
         <result property="contact" column="contact"/>
         <result property="otherDemand" column="other_demand"/>
         <result property="date" column="date"/>
+        <result property="reason" column="reason"/>
         <association property="lab" javaType="com.nkuvr.pojo.Lab">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
@@ -31,7 +32,6 @@
         </association>
         <association property="user" javaType="com.nkuvr.pojo.User">
             <id property="id" column="id"/>
-            <result property="username" column="username"/>
             <result property="password" column="password"/>
             <result property="realName" column="real_name"/>
             <result property="studentNumber" column="student_number"/>
@@ -65,7 +65,9 @@
             <if test="setTime">set_time,</if>
             <if test="contact">contact,</if>
             <if test="otherDemand">other_demand,</if>
-            <if test="date">date</if>
+            <if test="date">date,</if>
+            <if test="reason">reason</if>
+
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="id">#{id},</if>
@@ -86,14 +88,49 @@
             <if test="setTime">#{setTime},</if>
             <if test="contact">#{contact},</if>
             <if test="otherDemand != null">#{otherDemand},</if>
-            <if test="date">#{date}</if>
+            <if test="date">#{date},</if>
+            <if test="reason">#{reason}</if>
         </trim>
     </insert>
 
 
-    <!-- 用户取消预约 -->
+    <!-- 取消预约 -->
     <update id="appointmentCancelById">
         update sys_appointment set state = 3 where id = #{id}
+    </update>
+
+    <!-- 通过预约 -->
+    <update id="appointmentPassById">
+        update sys_appointment set state = 0 where id = #{id}
+    </update>
+
+    <!-- 不通过预约 -->
+    <update id="appointmentNoPassById">
+        update sys_appointment set state = 1, reason = #{reason} where id = #{id}
+    </update>
+
+
+    <!-- 预约修改 -->
+    <update id="appointmentEdit" parameterType="com.nkuvr.pojo.Appointment">
+        update sys_appointment
+        <trim prefix="set" suffixOverrides=",">
+            <if test="lid">lid = #{lid},</if>
+            <if test="activityTime">activity_time = #{activityTime},</if>
+            <if test="activityName">activity_name = #{activityName},</if>
+            <if test="appointmentNumber">appointment_number = #{appointmentNumber},</if>
+            <if test="principal">principal = #{principal},</if>
+            <if test="description">description = #{description},</if>
+            <if test="consumerDemand != null">consumer_demand = #{consumerDemand},</if>
+            <if test="deviceDemand != null">device_demand = #{deviceDemand},</if>
+            <if test="teacher != null">teacher = #{teacher},</if>
+            <if test="staffContact != null">staff_contact = #{staffContact},</if>
+            <if test="speaker != null">speaker = #{speaker},</if>
+            <if test="staff != null">staff = #{staff},</if>
+            <if test="setTime">set_time = #{setTime},</if>
+            <if test="contact != null">contact = #{contact},</if>
+            <if test="otherDemand != null">other_demand = #{otherDemand}</if>
+        </trim>
+        where id = #{id}
     </update>
 
     <!-- 删除预约 -->

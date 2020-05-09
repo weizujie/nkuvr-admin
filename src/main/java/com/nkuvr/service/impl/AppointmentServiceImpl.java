@@ -52,5 +52,20 @@ public class AppointmentServiceImpl implements IAppointmentService {
         appointmentMapper.appointmentDeleteById(id);
     }
 
+    @Override
+    public void appointmentPassById(Long id) {
+        appointmentMapper.appointmentPassById(id);
+    }
+
+    @Override
+    public void appointmentNoPassById(Long id, String reason) {
+        appointmentMapper.appointmentNoPassById(id, reason);
+    }
+
+    @Override
+    public void appointmentEdit(Appointment appointment) {
+        appointmentMapper.appointmentEdit(appointment);
+    }
+
 
 }

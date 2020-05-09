@@ -92,7 +92,7 @@
                                             <td th:text="${appointment.appointmentNumber}"></td>
                                             <td th:switch="${appointment.state}">
                                                 <font th:case="0" class="text-success">通过</font>
-                                                <font th:case="1" class="text-danger">不通过</font>
+                                                <font th:case="1" class="text-danger" th:title="${appointment.reason}">不通过，查看原因</font>
                                                 <font th:case="2" class="text-warning">审核中</font>
                                                 <font th:case="3" class="text-danger">已取消</font>
                                             </td>
@@ -177,7 +177,7 @@
                     layer.close(loadingIndex);
                     if (result.success) {
                         layer.msg("取消成功", {time: 1000, icon: 6});
-                        window.location.href = "/appointment/myAppointment/" + uid;
+                        window.location.href = "/appointment/my/" + uid;
                     } else {
                         layer.msg("取消失败，请重新操作", {time: 1000, icon: 5, shift: 6});
                     }
@@ -186,6 +186,10 @@
         });
         return false;
     }
+</script>
+
+<script th:inline="javascript">
+
 </script>
 </body>
 </html>
