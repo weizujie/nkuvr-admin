@@ -73,7 +73,7 @@
 | teacher            | varchar  | 指导老师                                                   |
 | activity_time      | datetime | 活动时间                                                   |
 | set_time           | datetime | 布场时间                                                   |
-
+| reason             | varchar  | 不通过原因                                                 |
 
 
 ### 3、实验室表（sys_lab）
@@ -98,11 +98,15 @@
     - Mysql      8.0.19
     - Pagehelper 1.2.13
     - Thymeleaf  2.2.6
-    - Lombok     1.18.12
     - IntelliJ IDEA 2017
       
 
 ## 四、日志
+
+- 2020年5月9日
+    - 完成"预约通过"功能
+    - 完成"预约不通过"功能
+    - 完成"预约修改"功能
 
 - 2020年5月5日
     - 完成"预约删除"功能
