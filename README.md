@@ -1,6 +1,6 @@
 <h1 align="center"><a href="https://github.com/weizujie/Nkuvr-Admin" target="_blank">Nkuvr-Admin</a></h1>
 
-> :nerd_face: 大学生创新创业训练计划项目：数字校园 - 开放型实验室智慧管理平台，基于 SpringBoot + Mybaits + Shiro + Pagehelper + Bootstrap 开发的南滨实验室预约管理系统
+> :nerd_face: 大学生创新创业训练计划项目：数字校园 - 开放型实验室智慧管理平台，基于 SpringBoot + Mybatis + Shiro + Thymeleaf 开发的南滨实验室预约管理系统
 
 ------------------------------
 
