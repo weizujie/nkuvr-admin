@@ -3,6 +3,7 @@ package com.nkuvr.pojo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @Author: weizujie
@@ -24,7 +25,7 @@ public class User {
 
     private Integer state;
 
-    private Integer remark;
+    private String remark;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createTime = new Date();
@@ -35,7 +36,7 @@ public class User {
     public User() {
     }
 
-    public User(String password, String studentNumber, String realName, Integer gender, Integer state, Integer remark, Date createTime, Date updateTime) {
+    public User(String password, String studentNumber, String realName, Integer gender, Integer state, String remark, Date createTime, Date updateTime) {
         this.password = password;
         this.studentNumber = studentNumber;
         this.realName = realName;
@@ -94,11 +95,11 @@ public class User {
         this.state = state;
     }
 
-    public Integer getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(Integer remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 

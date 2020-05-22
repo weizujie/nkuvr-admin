@@ -23,5 +23,9 @@ public class ErrorController {
         return "error/500";
     }
 
+    @RequestMapping("/unauth")
+    public String unAuth() {
+        return "error/unauth";
+    }
 
 }

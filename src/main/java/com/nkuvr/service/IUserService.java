@@ -81,6 +81,5 @@ public interface IUserService {
      * 根据学号查询用户
      */
     User findUserByStudentNumber(String studentNumber);
-
 }
 

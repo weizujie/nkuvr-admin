@@ -32,7 +32,7 @@ class NkuvrAdminApplicationTests {
 
     @Test
     void findUserByStudentNumberTest() {
-        User userByStudentNumber = userService.findUserByStudentNumber("17990421");
+        User userByStudentNumber = userService.findUserByStudentNumber("17990425");
         if (userByStudentNumber == null) {
             System.out.println("giao!!!!");
         }
@@ -45,4 +45,5 @@ class NkuvrAdminApplicationTests {
         System.out.println(reason[reason.length-1]);
 
     }
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
@@ -62,21 +62,20 @@
             <div class="login-header text-center">
                 <a href="/login"> <img alt="light year admin" src="images/logo-sidebar.png"> </a>
             </div>
-            <form>
-
+            <p style="color: red;text-align: center" th:text="${msg}"></p>
+            <form method="post" action="/doLogin">
                 <div class="form-group has-feedback feedback-left">
                     <input type="text" placeholder="请输入学号" class="form-control" name="studentNumber" id="studentNumber"
-                           value="17990425"/>
+                           value=""/>
                     <span class="mdi mdi-account form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="form-group has-feedback feedback-left">
                     <input type="password" placeholder="请输入密码" class="form-control" id="password" name="password"
-                           value="123456"/>
+                           value=""/>
                     <span class="mdi mdi-lock form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="form-group">
-                    <a class="btn btn-block btn-primary" href="javascript:void(0);" onclick="return doLogin();">立即登录
-                    </a>
+                    <input type="submit" class="btn btn-block btn-primary" value="立即登录"/>
                 </div>
             </form>
             没有账号？<a href="/register">点击注册</a>
@@ -87,50 +86,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script src="layer/layer.js"></script>
-<script type="text/javascript">
-    function doLogin() {
-        var studentNumber = $("#studentNumber").val();
-        var password = $("#password").val();
-        var loadingIndex = null;
-        if (studentNumber === "") {
-            layer.msg("学号不能为空，请输入!", {time: 1000, icon: 5, shift: 6});
-            return;
-        }
-        if (!studentNumber.match(/\d{8}$/)) {
-            layer.msg("请输入正确的学号!", {time: 1000, icon: 5, shift: 6});
-            return;
-        }
-        if (password === "") {
-            layer.msg("密码不能为空，请输入!", {time: 1000, icon: 5, shift: 6});
-            return;
-        }
-        $.ajax({
-            type: "post",
-            url: "/doLogin",
-            async: false,
-            dataType: "json",
-            data: {
-                "studentNumber": studentNumber,
-                "password": password
-            },
-            beforeSend: function () {
-                loadingIndex = layer.msg("处理中", {icon: 16});
-            },
-            success: function (result) {
-                layer.close(loadingIndex);
-                if (result.success) {
-                    layer.msg("登录成功", {time: 1000, icon: 6})
-                    window.location.href = "/user/index";
-                } else {
-                    layer.msg("学号或密码错误，请重新输入", {time: 1000, icon: 5, shift: 6});
-                }
-            }
-        });
-        return false;
-    }
-</script>
 </body>
 </html>

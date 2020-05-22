@@ -99,7 +99,7 @@
                                                 <font th:case="0" class="text-success">正常</font>
                                                 <font th:case="1" class="text-danger">禁用</font>
                                             </td>
-                                            <td th:text="${user.remark==0?'管理员':'学生'}"></td>
+                                            <td th:text="${user.remark=='0'?'管理员':'学生'}"></td>
                                             <td th:text="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></td>
                                             <td th:text="${#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></td>
                                             <td>

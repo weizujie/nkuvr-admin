@@ -27,7 +27,7 @@
                     <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 预约管理</a>
                     <ul class="nav nav-subnav">
                         <li><a href="/appointment/list">预约列表</a></li>
-                        <li><a th:href="@{'/appointment/my/' + ${session.loginUser.id}}">我的预约</a></li>
+                            <li><a th:href="@{'/appointment/my/' + ${session.loginUser.id}}">我的预约</a></li>
                         <li><a href="/appointment/add">新增预约</a></li>
                     </ul>
                 </li>
