@@ -40,6 +40,11 @@ public class ShiroConfig {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
         // 不需要授权的网页
+        map.put("/css/**", "anon");
+        map.put("/js/**", "anon");
+        map.put("/images/**", "anon");
+        map.put("/fonts/**", "anon");
+        map.put("/layer/**", "anon");
         map.put("/", "anon");
         map.put("/doLogin", "anon");
         map.put("/register", "anon");
@@ -62,8 +67,7 @@ public class ShiroConfig {
         map.put("/appointment/view/", "perms[0]");
         map.put("/appointment/delete/", "perms[0]");
 
-
-        // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
+        // 配置退出过滤器,其中的具体的退出代码 Shiro 已经替我们实现了
         map.put("/logout", "logout");
 
         //拦截所有请求，一般放最后面
@@ -74,7 +78,6 @@ public class ShiroConfig {
         bean.setLoginUrl("/");
         // 设置未授权页面
         bean.setUnauthorizedUrl("/error/unauth");
-        bean.setSuccessUrl("/user/index");
         bean.setFilterChainDefinitionMap(map);
         return bean;
     }

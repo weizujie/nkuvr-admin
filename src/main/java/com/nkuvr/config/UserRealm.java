@@ -59,6 +59,7 @@ public class UserRealm extends AuthorizingRealm {
         System.out.println("-------------------------------> 执行认证逻辑");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         User user = userService.findUserByStudentNumber(token.getUsername());
+
         if (user == null) {
             return null;
         }

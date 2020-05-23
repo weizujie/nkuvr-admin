@@ -1,13 +1,13 @@
 variable:
-   profiles : dev
+   profiles : pro
 
 spring:
   datasource:
     # mysql 配置
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/nkuvr_admin?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: root
-    password: toor
+    username: 
+    password: 
 
     # 连接池配置
     type: com.alibaba.druid.pool.DruidDataSource
@@ -40,18 +40,12 @@ spring:
     cache: false
     mode: HTML
 
-# 端口配置
-server:
-  port: 8082
-
-
 # mybatis 配置
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
+    ## log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 分页插件配置
 pagehelper:
@@ -61,4 +55,3 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
   helper-dialect: mysql
-
