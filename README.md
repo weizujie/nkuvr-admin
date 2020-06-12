@@ -1,6 +1,6 @@
 <h1 align="center"><a href="https://github.com/weizujie/Nkuvr-Admin" target="_blank">Nkuvr-Admin</a></h1>
 
-> :nerd_face: 大学生创新创业训练计划项目：数字校园 - 开放型实验室智慧管理平台，基于 SpringBoot、Mybatis 的实验室管理平台
+> :nerd_face: 大学生创新创业训练计划项目：数字校园 - 开放型实验室智慧管理平台，基于 SpringBoot、Mybatis 的实验室管理平台。平台实现了用户管理、实验室预约的管理等功能。前端使用 Thymeleaf 开发，通过 ajax 与后端交互。后端遵循 RESTful 设计风格。
 
 ------------------------------
 
