@@ -3,7 +3,6 @@ package com.nkuvr.pojo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.Set;
 
 /**
  * @Author: weizujie
@@ -28,10 +27,10 @@ public class User {
     private String remark;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date createTime = new Date();
+    private Date createTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date updateTime = new Date();
+    private Date updateTime;
 
     public User() {
     }

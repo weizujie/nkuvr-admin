@@ -6,8 +6,8 @@ spring:
     # mysql 配置
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/nkuvr_admin?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: 
-    password: 
+    username: root
+    password: Web201906.
 
     # 连接池配置
     type: com.alibaba.druid.pool.DruidDataSource

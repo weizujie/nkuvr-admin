@@ -54,7 +54,7 @@ public class Appointment {
     private Date setTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date = new Date();
+    private Date date;
 
 
     private Lab lab;
