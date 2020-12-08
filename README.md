@@ -7,7 +7,7 @@
 
 # 实验室预约管理系统
 
-## 一、需求分析
+## 需求分析
 
 该系统的用户分为两种：管理员、学生
 
@@ -32,64 +32,10 @@
 - 管理预约信息
 - 退出登录
 
-## 二、数据库设计
 
-### 1、用户表 （sys_user）
+## 说明
 
-| 字段名         | 类型     | 注释                           |
-| -------------- | -------- | ------------------------------ |
-| id             | bigint   |                                |
-| password       | varchar  | 密码                           |
-| student_number | int      | 学号                           |
-| real_name      | varchar  | 真实姓名                       |
-| gender         | tinyint  | 性别<br/>0：男<br/>1：女       |
-| state          | tinyint  | 状态<br/>0：正常<br/>1：禁用   |
-| remark         | tinyint  | 权限<br/>0：管理员<br/>1：学生 |
-| create_time    | datetime | 创建时间                       |
-| update_time    | datetime | 更新时间                       |
-
-
-
-### 2、预约表（sys_appointment）
-
-| 字段名             | 类型     | 注释                                                       |
-| ------------------ | -------- | ---------------------------------------------------------- |
-| id                 | bigint   |                                                            |
-| uid                | int      | 用户id                                                     |
-| lid                | int      | 实验室id                                                   |
-| date               | datetime | 预约时间                                                   |
-| state              | tinyint  | 预约状态<br>0：通过<br>1：不通过<br>2：审核中<br>3：已取消 |
-| appointment_number | int      | 预约人数                                                   |
-| activity_name      | varchar  | 活动名称                                                   |
-| principal          | varchar  | 负责人                                                     |
-| contact            | varchar  | 负责人联系方式                                             |
-| speaker            | varchar  | 主讲人                                                     |
-| description        | varchar  | 活动描述                                                   |
-| device_demand      | varchar  | 设备需求                                                   |
-| consumer_demand    | varchar  | 消费需求                                                   |
-| other_demand       | varchar  | 其他需求                                                   |
-| staff              | varchar  | 工作人员                                                   |
-| staff_contact      | varchar  | 工作人员联系方式                                           |
-| teacher            | varchar  | 指导老师                                                   |
-| activity_time      | datetime | 活动时间                                                   |
-| set_time           | datetime | 布场时间                                                   |
-| reason             | varchar  | 不通过原因                                                 |
-
-
-### 3、实验室表（sys_lab）
-
-| 字段名     | 类型    | 注释         |
-| ---------- | ------- | ------------ |
-| id         | bigint  |              |
-| name       | varchar | 实验室教室号 |
-| galleryful | int     | 容纳人数     |
-
-
-
-
-## 三、说明
-
-- 作者：韦祖杰
+- 作者：weizujie
 
 - 环境：
 
@@ -101,7 +47,7 @@
     - IntelliJ IDEA 2017
       
 
-## 四、日志
+## 开发日志
 
 - 2020年7月17日
     - 修改"预约修改"页面的一些代码错误
@@ -144,7 +90,8 @@
     - 查询"用户列表"功能
     - 使用 Pagehelper 实现分页查询
     
-## 五、联系
+## 联系
 
 - [Github@weizujie](https://github.com/weizujie)
+- [Email](byojiaoxianz7@outlook.com)
   
