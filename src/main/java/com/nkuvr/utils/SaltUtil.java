@@ -1,4 +1,4 @@
-package kaizen.shiro.utils;
+package com.nkuvr.utils;
 
 import java.util.Random;
 
@@ -6,7 +6,7 @@ import java.util.Random;
  * 生成随机 salt 工具类
  *
  * @Author: weizujie
- * @Date: 2020/12/6
+ * @Date: 2021/1/4
  * @Github: https://github.com/weizujie
  */
 public class SaltUtil {

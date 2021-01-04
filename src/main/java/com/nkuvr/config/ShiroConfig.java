@@ -1,6 +1,6 @@
-package kaizen.shiro.config;
+package com.nkuvr.config;
 
-import kaizen.shiro.shiro.CustomerRealm;
+import com.nkuvr.shiro.CustomerRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -20,7 +20,7 @@ import java.util.Map;
  * shiro 配置
  *
  * @Author: weizujie
- * @Date: 2020/12/5
+ * @Date: 2021/1/4
  * @Github: https://github.com/weizujie
  */
 @Configuration
@@ -39,14 +39,21 @@ public class ShiroConfig {
 
 
         // 配置系统公共资源(匿名访问)
-        map.put("/api/v1/login", "anon");
-        map.put("/api/v1/register", "anon");
+        map.put("/login", "anon");
+        map.put("/register", "anon");
+        // 放行 swagger
+        map.put("/swagger-ui.html", "anon");
+        map.put("/swagger-resources/**", "anon");
+        map.put("/v2/api-docs", "anon");
+        map.put("/webjars/**", "anon");
+        map.put("/configuration/security", "anon");
+        map.put("/configuration/ui", "anon");
 
         // 配置系统受限资源(需要认证才能访问的资源)
         map.put("/**", "authc");
 
         // 配置 shiro 默认登录界面地址。前后端分离项目中，登录界面跳转应该由前端控制，后端仅返回 json 数据
-        shiroFilterFactoryBean.setLoginUrl("/api/v1/unauth");
+        shiroFilterFactoryBean.setLoginUrl("/unauth");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
@@ -88,7 +95,7 @@ public class ShiroConfig {
         // 开启授权缓存
         realm.setAuthorizationCachingEnabled(true);
         realm.setAuthorizationCacheName("authorizationCache");
-        
+
         return realm;
     }
 
@@ -112,8 +119,6 @@ public class ShiroConfig {
 
     /**
      * 开启 Shiro 注解，如@RequiresRoles,@RequiresPermissions
-     *
-     * @return
      */
     @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -124,9 +129,6 @@ public class ShiroConfig {
 
     /**
      * 开启 Shiro 注解，如@RequiresRoles,@RequiresPermissions
-     *
-     * @param securityManager
-     * @return
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
