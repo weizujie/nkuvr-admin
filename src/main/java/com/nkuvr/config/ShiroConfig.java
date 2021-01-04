@@ -1,107 +1,138 @@
-package com.nkuvr.config;
+package kaizen.shiro.config;
 
+import kaizen.shiro.shiro.CustomerRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.LinkedHashMap;
-
+import java.util.HashMap;
+import java.util.Map;
 
 /**
+ * shiro 配置
+ *
  * @Author: weizujie
- * @Date: 2020/5/7
- * @Version: 1.0
+ * @Date: 2020/12/5
  * @Github: https://github.com/weizujie
  */
-
 @Configuration
 public class ShiroConfig {
 
     /**
-     * ShiroFilterFactoryBean
+     * 创建 shiroFilter，负责拦截所有请求
      */
     @Bean
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("manager") DefaultWebSecurityManager manager) {
-        ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
-        // 设置安全管理器
-        bean.setSecurityManager(manager);
+    public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        // 给 filter 设置安全管理器
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        /**
-         * 添加 shiro 内置过滤器
-         * 常用过滤器：
-         *      anon: 无需认证即可访问
-         *      authc: 必须认证才可以访问
-         *      user: 使用 rememberMe 的功能才能访问
-         *      perms: 该资源必须得到资源权限才可以访问
-         *      role: 该资源必须得到角色权限才能访问
-         */
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        Map<String, String> map = new HashMap<>();
 
-        // 不需要授权的网页
-        map.put("/css/**", "anon");
-        map.put("/js/**", "anon");
-        map.put("/images/**", "anon");
-        map.put("/fonts/**", "anon");
-        map.put("/layer/**", "anon");
-        map.put("/", "anon");
-        map.put("/doLogin", "anon");
-        map.put("/register", "anon");
-        map.put("/doRegister", "anon");
 
-        // 需要授权才能访问的网页（按顺序判断）
-        // 都能访问的页面
-        map.put("/user/profile/", "authc");
-        map.put("/user/changePassword/", "authc");
-        map.put("/appointment/my/", "authc");
-        map.put("/appointment/edit/", "authc");
-        map.put("/appointment/add", "authc");
+        // 配置系统公共资源(匿名访问)
+        map.put("/api/v1/login", "anon");
+        map.put("/api/v1/register", "anon");
 
-        // 管理员权限能访问的页面
-        map.put("/user/list", "perms[0]");
-        map.put("/user/add", "perms[0]");
-        map.put("/user/edit/", "perms[0]");
-        map.put("/user/delete/", "perms[0]");
-        map.put("/appointment/list", "perms[0]");
-        map.put("/appointment/view/", "perms[0]");
-        map.put("/appointment/delete/", "perms[0]");
-
-        // 配置退出过滤器,其中的具体的退出代码 Shiro 已经替我们实现了
-        map.put("/logout", "logout");
-
-        //拦截所有请求，一般放最后面
+        // 配置系统受限资源(需要认证才能访问的资源)
         map.put("/**", "authc");
 
+        // 配置 shiro 默认登录界面地址。前后端分离项目中，登录界面跳转应该由前端控制，后端仅返回 json 数据
+        shiroFilterFactoryBean.setLoginUrl("/api/v1/unauth");
 
-        // 设置登录要跳转的页面
-        bean.setLoginUrl("/");
-        // 设置未授权页面
-        bean.setUnauthorizedUrl("/error/unauth");
-        bean.setFilterChainDefinitionMap(map);
-        return bean;
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+        return shiroFilterFactoryBean;
+    }
+
+    /**
+     * 安全管理器
+     */
+    @Bean
+    public DefaultWebSecurityManager securityManager(Realm realm) {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        // 给安全管理器设置自定义 realm
+        securityManager.setRealm(realm);
+        return securityManager;
+    }
+
+    /**
+     * 自定义 realm
+     */
+    @Bean
+    public Realm realm() {
+        CustomerRealm realm = new CustomerRealm();
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        // 使用加密算法
+        credentialsMatcher.setHashAlgorithmName("md5");
+        // 设置散列次数，与 IUserServiceImpl 类中设置的一致
+        credentialsMatcher.setHashIterations(1024);
+        // 设置 realm 使用 hash 凭证匹配器
+        realm.setCredentialsMatcher(credentialsMatcher);
+
+        // 开启缓存管理
+        EhCacheManager cacheManager = new EhCacheManager();
+        realm.setCacheManager(cacheManager);
+        // 开启全局缓存
+        realm.setCachingEnabled(true);
+        // 开启认证缓存
+        realm.setAuthenticationCachingEnabled(true);
+        realm.setAuthenticationCacheName("authenticationCache");
+        // 开启授权缓存
+        realm.setAuthorizationCachingEnabled(true);
+        realm.setAuthorizationCacheName("authorizationCache");
+        
+        return realm;
+    }
+
+    /**
+     * Session 管理器
+     */
+    @Bean
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        // 设置 session 过期时间为 1 小时
+        sessionManager.setGlobalSessionTimeout(60 * 60 * 1000);
+        // 删除过期的 session
+        sessionManager.setDeleteInvalidSessions(true);
+        // 是否定时检查 session
+        sessionManager.setSessionValidationSchedulerEnabled(true);
+        // 取消登录跳转 URL 后面的 jsessionid 参数
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
+        return sessionManager;
     }
 
 
     /**
-     * DefaultWebSecurityManager
+     * 开启 Shiro 注解，如@RequiresRoles,@RequiresPermissions
+     *
+     * @return
      */
-    @Bean(name = "manager")
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
-        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        // 关联 Realm
-        manager.setRealm(userRealm);
-        return manager;
+    @Bean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
+        proxyCreator.setProxyTargetClass(true);
+        return proxyCreator;
     }
-
 
     /**
-     * Realm
+     * 开启 Shiro 注解，如@RequiresRoles,@RequiresPermissions
+     *
+     * @param securityManager
+     * @return
      */
-    @Bean(name = "userRealm")
-    public UserRealm getRealm() {
-        return new UserRealm();
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
     }
-
 
 }

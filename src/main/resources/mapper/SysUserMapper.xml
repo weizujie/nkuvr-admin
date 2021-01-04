@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nkuvr.mapper.SysUserMapper">
+    <!-- 如果设置别名(如 p.id as pid)，有权限角色访问对应的资源时也会报无权限异常 -->
+    <select id="getPermsByRoleId" parameterType="Integer" resultType="com.nkuvr.entity.SysPerms">
+        SELECT p.id, p.name, r.name
+        FROM sys_role r
+                 LEFT JOIN sys_role_perms rp ON r.id = rp.role_id
+                 LEFT JOIN sys_perms p ON p.id = rp.perms_id
+        WHERE r.id = #{id}
+    </select>
+
+    <!-- column：与 SQL 语句中 as 后面的对应   property：实体类中定义的对象的名称 -->
+    <!-- collection 包裹的是角色信息 -->
+    <resultMap id="userMap" type="com.nkuvr.entity.SysUser">
+        <id column="uid" property="id"/>
+        <result column="username" property="username"/>
+        <collection property="roles" javaType="list" ofType="com.nkuvr.entity.SysRole">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+        </collection>
+    </resultMap>
+    <select id="getRolesByUsername" parameterType="String" resultMap="userMap">
+        SELECT u.id uid, u.username, r.id rid, r.name rname
+        FROM t_user u
+                 LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+                 LEFT JOIN sys_role r ON r.id = ur.role_id
+        WHERE u.username = #{username}
+    </select>
+
+    <!-- 根据用户名查询用户信息 -->
+    <select id="getByUsername" resultType="com.nkuvr.entity.SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE username = #{username}
+    </select>
+</mapper>
